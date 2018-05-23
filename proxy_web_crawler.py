@@ -99,7 +99,11 @@ class ProxyCrawler:
                         print("could not find a link")
                 else:
                     time.sleep(random.randint(2, 6) + random.random())
-                    browser2.find_element_by_link_text(str(page_index + 1)).click()
+                    try:
+                        browser2.find_element_by_link_text(str(page_index + 1)).click()
+                    except:
+                        print("proxy server is too slow")
+                        break
             browser2.quit()
 
 
