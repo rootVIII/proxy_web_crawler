@@ -102,7 +102,7 @@ class ProxyCrawler:
                     try:
                         browser2.find_element_by_link_text(str(page_index + 1)).click()
                     except:
-                        print("proxy server is too slow")
+                        print("Exception occurred: trying next socket")
                         break
             browser2.quit()
 
