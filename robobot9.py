@@ -76,7 +76,7 @@ class Robobot9:
             print("searching for keyword(s):   " + self.keyword)
             time.sleep(random.randint(20, 30) + random.random())
             pyautogui.typewrite(self.keyword)
-            time.sleep(random.randint(2, 5) + random.random())
+            time.sleep(random.randint(20, 30) + random.random())
             pyautogui.press('enter')
             time.sleep(random.randint(20, 30) + random.random())
             page_index = 0
@@ -87,10 +87,9 @@ class Robobot9:
                     selected_link = browser2.find_element_by_partial_link_text("Roboshout").click()
                 except:
                     print("searching... ")
-                time.sleep(random.randint(0, 11) + random.random())
+                time.sleep(random.randint(30, 60) + random.random())
                 if "roboshout.com" in browser2.current_url:
-                    print("https://www.roboshout.com found at index:   " + str(page_index))
-                    time.sleep(random.randint(1, 60) + random.random())
+                    time.sleep(random.randint(10, 20) + random.random())
                     page_selection = random.randint(0, 11)
                     try:
                         link = browser2.find_element_by_link_text(self.pages[page_selection])
