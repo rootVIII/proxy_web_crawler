@@ -17,7 +17,7 @@ import pyautogui
 
 
 class Robobot9:
-    def __init__(self, socket_list = []):
+    def __init__(self, socket_list=[]):
         self.__scrape_socket()
         self.keyword = ""
         self.pages = [
@@ -76,26 +76,25 @@ class Robobot9:
             print("searching for keyword(s):   " + self.keyword)
             time.sleep(random.randint(20, 30) + random.random())
             pyautogui.typewrite(self.keyword)
-            time.sleep(random.randint(20, 30) + random.random())
+            time.sleep(random.randint(30, 60) + random.random())
             pyautogui.press('enter')
             time.sleep(random.randint(20, 30) + random.random())
             page_index = 0
             while not "roboshout.com" in browser2.current_url:
                 page_index += 1
-                print("current page index:   " + str(page_index))
                 try:
                     selected_link = browser2.find_element_by_partial_link_text("Roboshout").click()
                 except:
-                    print("searching... ")
-                time.sleep(random.randint(30, 60) + random.random())
+                    print("current page index:   " + str(page_index))
+                time.sleep(random.randint(20, 30) + random.random())
                 if "roboshout.com" in browser2.current_url:
-                    time.sleep(random.randint(10, 20) + random.random())
+                    print("https://www.roboshout.com found at index:   " + str(page_index))
                     page_selection = random.randint(0, 11)
                     try:
                         link = browser2.find_element_by_link_text(self.pages[page_selection])
                         link.click()
                         print(browser2.current_url)
-                        time.sleep(random.randint(30,100) + random.random())
+                        time.sleep(random.randint(30, 100) + random.random())
                     except:
                         print("could not find a link")
                 else:
@@ -108,6 +107,7 @@ if __name__ == "__main__":
     bot = Robobot9()
     while True:
         bot.start_search()
+
 
 
 
