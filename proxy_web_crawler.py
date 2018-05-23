@@ -16,24 +16,28 @@ import re
 import pyautogui
 
 
-class Robobot9:
+class ProxyCrawler:
     def __init__(self, socket_list=[]):
         self.__scrape_socket()
         self.keyword = ""
         self.pages = [
-            "Robocall", "Robocall Extensions", "Youtube Call", "Mass Robocalls",
-            "Robocall Recorder (Portal)", "Text (Send/Receive)", "Twenty Texts", "Text Blaster",
-            "Text Bombardment", "Mass-Texts", "Free Anonymous Call", "Free Anonymous Text"
+            "Robocall Extensions", "Youtube Call",
+            "Mass Robocalls", "Robocall Recorder (Portal)",
+            "Text (Send/Receive)", "Twenty Texts", "Robocall",
+            "Text Bombardment", "Mass-Texts", "Text Blaster",
+            "Free Anonymous Call", "Free Anonymous Text"
         ]
 
     def __set_keyword(self):
         keywords = [
-            "anonymous robot call", "anonymous text from computer", "online text roboshout",
-            "anonymous sms", "free text roboshout", "free call roboshout", "anonymous online call",
-            "roboshout.com", "receive sms online", "anonymous mms", "robocall", "anonymous call",
-            "text from computer", "internet text", "send a text", "call recorder", "send online text",
-            "anonymous text", "make a robocall", "send 1000 texts", "robocall roboshout",
-            "roboshout send text", "online call roboshout", "free text Roboshout", "roboshout sms"
+            "anonymous robot call", "send anonymous text", "send 1000 texts"
+            "online text roboshout", "anonymous sms", "free text roboshout",
+            "free call roboshout", "anonymous online call", "receive sms online",
+            "text from computer", "internet text", "send a text", "call recorder",
+            "send online text", "anonymous text", "make a robocall", "roboshout sms",
+            "robocall roboshout", "roboshout send text", "online call roboshout",
+            "free online text",  "anonymous mms", "robocall", "anonymous call",
+            "send and receive anonymous texts", "youtube call", "robot call"
         ]
         search_term = random.randint(0, 24)
         self.keyword = keywords[search_term]
@@ -74,7 +78,7 @@ class Robobot9:
             print("\n--------------------------------------------")
             print("using socket: " + PROXY_HOST + ":" + PROXY_PORT)
             print("searching for keyword(s):   " + self.keyword)
-            time.sleep(random.randint(20, 30) + random.random())
+            time.sleep(random.randint(30, 60) + random.random())
             pyautogui.typewrite(self.keyword)
             time.sleep(random.randint(30, 60) + random.random())
             pyautogui.press('enter')
@@ -104,16 +108,6 @@ class Robobot9:
 
 
 if __name__ == "__main__":
-    bot = Robobot9()
+    bot = ProxyCrawler()
     while True:
         bot.start_search()
-
-
-
-
-
-
-
-
-
-
