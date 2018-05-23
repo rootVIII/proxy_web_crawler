@@ -3,13 +3,9 @@
 # 22MAY2018
 # https://www.roboshout.com
 
-import sys
-import os
+
 import time
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.proxy import *
 import random
 import re
