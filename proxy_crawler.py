@@ -105,7 +105,7 @@ class ProxyCrawler:
 if __name__ == "__main__":
     print("\nPlease enter the FULLY QUALIFIED URL that you want to crawl for...")
     url = input("example: https://www.mysite.com\n\n")
-    if "http" not in url or "https" not in url:
+    if "http://" not in url or "https://" not in url:
         print("invalid URL... exiting")
         sys.exit()
     keywd = input("\nWhat keyword(s) would you like to search for?\n\n")
