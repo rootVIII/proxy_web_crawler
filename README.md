@@ -2,6 +2,8 @@
 This script automates the process of searching for a website via keywords
 and the Bing search engine.... page after page.
 <br><br>
+When prompted, give it a fully qualified URL and then a search term, keyword, or phrase
+<br><br>
 It first scrapes a list of proxies from the web
 using <a href="https://www.sslproxies.org">SSL Proxies</a>.
 <br><br>
