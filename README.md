@@ -21,11 +21,11 @@ Due to the slow performance of most (but not all) proxy servers, it's important 
 <i>slow</i> the bot down using the built in time module.
 <br><br>
 This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 60.0
-<hr><br>
+<br><br>
 I use this version of geckodriver on Ubuntu:
-<hr><br>
-<b>wget https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz
-<hr><br>
+<br><br>
+<b>wget https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz</b>
+<br><br>
 Geckodriver should be saved somewhere in your PATH... id: /usr/local/bin
-</b>
+<hr>
 <b>Author: James Loye Colley  22MAY2018</b>
