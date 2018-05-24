@@ -10,7 +10,7 @@ When the object is initialized in the constructor, the following method is calle
 self.__scrape_socket()
 <br><br>
 This saves each ip/port for each proxy server into a list after scraping the table
-of proxy servers from the sslproxies.org.
+of proxy servers from sslproxies.org.
 <br><br>
 Then using a new socket from the list for each iteration, a random keyword is
 searched for via https://www.bing.com until the desired website is found.
@@ -22,7 +22,10 @@ Due to the slow performance of most (but not all) proxy servers, it's important 
 <br><br>
 This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 60.0
 <hr><br>
+I use this version of geckodriver on Ubuntu:
+<hr><br>
+<b>wget https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz
+<hr><br>
+Geckodriver should be saved somewhere in your PATH... id: /usr/local/bin
+</b>
 <b>Author: James Loye Colley  22MAY2018</b>
-
-
-
