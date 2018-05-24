@@ -26,6 +26,6 @@ I use this version of geckodriver on Ubuntu:
 <br><br>
 <b>wget https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz</b>
 <br><br>
-Geckodriver should be saved somewhere in your PATH... id: /usr/local/bin
+Geckodriver should be saved somewhere in your PATH... ie: /usr/local/bin
 <hr>
 <b>Author: James Loye Colley  22MAY2018</b>
