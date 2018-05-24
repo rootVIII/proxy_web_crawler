@@ -60,11 +60,11 @@ class ProxyCrawler:
             print("searching for keyword(s):   " + self.keyword)
             search_box = browser2.find_element_by_name("q")
             sub_button = browser2.find_element_by_name("go")
-            time.sleep(random.randint(10, 20) + random.random())
+            time.sleep(random.randint(60, 90) + random.random())
             search_box.send_keys(self.keyword)
-            time.sleep(random.randint(10, 20) + random.random())
+            time.sleep(random.randint(60, 90) + random.random())
             sub_button.send_keys(Keys.RETURN)
-            time.sleep(random.randint(10, 20) + random.random())
+            time.sleep(random.randint(30, 60) + random.random())
             page_index = 0
             extractor = re.sub(r".*.//"," ", self.url)
             if "www." in extractor:
