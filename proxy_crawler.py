@@ -81,6 +81,7 @@ class ProxyCrawler:
                         link.click()
                         print("Found " + domain + " at page index " + str(page_index))
                         break
+                time.sleep(5 + random.random())
                 if not domain in browser2.current_url:
                     try:
                         time.sleep(random.randint(5, 10) + random.random())
