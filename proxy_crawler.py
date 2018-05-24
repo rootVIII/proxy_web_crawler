@@ -71,8 +71,9 @@ class ProxyCrawler:
                 domain = extractor[5:]
             else:
                 domain = extractor
-            while  domain not in browser2.current_url:
+            while domain not in browser2.current_url:
                 page_index += 1
+                print("current index:   " + str(page_index))
                 page_links = browser2.find_elements_by_xpath("//a[@href]")
                 for link in page_links:
                     if domain in link.get_attribute("href"):
@@ -82,7 +83,6 @@ class ProxyCrawler:
                         break
                 if not domain in browser2.current_url:
                     try:
-                        print("current index:   " + str(page_index))
                         time.sleep(random.randint(5, 10) + random.random())
                         browser2.find_element_by_link_text(str(page_index + 1)).click()
                     except:
@@ -97,7 +97,7 @@ class ProxyCrawler:
             except:
                 print("Invalid target link... retrying with next socket")
             time.sleep(random.randint(10, 15) + random.random())
-            print("current page:   " + browser2.current_url)
+            print("visiting random page:   " + browser2.current_url)
             time.sleep(random.randint(30, 60) + random.random())
             browser2.quit()
 
