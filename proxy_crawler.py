@@ -60,11 +60,11 @@ class ProxyCrawler:
             print("searching for keyword(s):   " + self.keyword)
             search_box = browser2.find_element_by_name("q")
             sub_button = browser2.find_element_by_name("go")
-            time.sleep(random.randint(60, 90) + random.random())
+            time.sleep(random.randint(20, 30) + random.random())
             search_box.send_keys(self.keyword)
-            time.sleep(random.randint(60, 90) + random.random())
+            time.sleep(random.randint(20, 30) + random.random())
             sub_button.send_keys(Keys.RETURN)
-            time.sleep(random.randint(30, 60) + random.random())
+            time.sleep(random.randint(20, 30) + random.random())
             page_index = 0
             extractor = re.sub(r".*.//"," ", self.url)
             if "www." in extractor:
@@ -75,12 +75,15 @@ class ProxyCrawler:
                 page_index += 1
                 print("current index:   " + str(page_index))
                 page_links = browser2.find_elements_by_xpath("//a[@href]")
+                found_link = ""
                 for link in page_links:
                     if domain in link.get_attribute("href"):
                         time.sleep(1)
-                        link.click()
-                        print("Found " + domain + " at page index " + str(page_index))
-                        break
+                        found_link = link
+                        continue
+                if found_link:
+                    print("Found " + domain + " at page index " + str(page_index))
+                    found_link.click()
                 time.sleep(5 + random.random())
                 if not domain in browser2.current_url:
                     time.sleep(random.randint(5, 10) + random.random())
