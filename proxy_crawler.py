@@ -94,11 +94,6 @@ class ProxyCrawler:
                         break
                 else:
                     page_index = 0
-            if not domain in browser2.current_url:
-                print("trying next socket...")
-                browser2.quit()
-                time.sleep(1 + random.random())
-                continue
             time.sleep(random.randint(30, 60) + random.random())
             target_page_links = browser2.find_elements_by_xpath("//a[@href]")
             random_page_num = random.randint(0, len(target_page_links) - 1)
