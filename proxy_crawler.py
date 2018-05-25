@@ -79,17 +79,18 @@ class ProxyCrawler:
                     if domain in link.get_attribute("href"):
                         time.sleep(1)
                         found_link = link
-                        continue
+                        break
                 if found_link:
                     print("Found " + domain + " at page index " + str(page_index))
                     found_link.click()
                 time.sleep(5 + random.random())
-                if domain not in browser2.current_url:
+                if not domain in browser2.current_url:
                     time.sleep(random.randint(5, 10) + random.random())
                     try:
                         browser2.find_element_by_link_text(str(page_index + 1)).click()
                     except:
                         print("Exception occurred: trying next socket")
+                        break
                 else:
                     page_index = 0
             time.sleep(random.randint(30, 60) + random.random())
@@ -101,7 +102,7 @@ class ProxyCrawler:
                 target_link.click()
             except:
                 print("Invalid target link... retrying with next socket")
-                continue
+                break
             time.sleep(random.randint(10, 15) + random.random())
             print("visiting random page:   " + browser2.current_url)
             time.sleep(random.randint(30, 60) + random.random())
@@ -111,7 +112,7 @@ class ProxyCrawler:
 if __name__ == "__main__":
     print("\nPlease enter the FULLY QUALIFIED URL that you want to crawl for...")
     url = input("example: https://www.mysite.com\n\n")
-    if "http" not in url or "https" not in url:
+    if url[0:7] != "http://" and url[0:8] != "https://":
         print("invalid URL... exiting")
         sys.exit()
     keywd = input("\nWhat keyword(s) would you like to search for?\n\n")
