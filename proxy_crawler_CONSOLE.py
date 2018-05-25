@@ -83,7 +83,7 @@ class ProxyCrawler:
                             found_link = link
                     except:
                         print("stale element")
-                        browser2.close()
+                        browser2.quit()
                         break
                 if found_link:
                     print("Found " + domain + " at page index " + str(page_index))
