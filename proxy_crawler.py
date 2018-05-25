@@ -2,7 +2,6 @@
 # James Loye Colley
 # 22MAY2018
 # https://www.roboshout.com
-
 import sys
 import time
 from selenium import webdriver
@@ -11,10 +10,10 @@ from selenium.webdriver.common.keys import Keys
 import random
 import re
 
+
 # search for a given website by a string of text using a different proxy each time
 # page indexes are printed to the console (including final index of the site
 # once the site is found, a random link on the site will be clicked
-
 class ProxyCrawler:
     def __init__(self, URL, keyword, socket_list=[]):
         self.__scrape_socket()
@@ -66,7 +65,7 @@ class ProxyCrawler:
             sub_button.send_keys(Keys.RETURN)
             time.sleep(random.randint(20, 30) + random.random())
             page_index = 0
-            extractor = re.sub(r".*.//"," ", self.url)
+            extractor = re.sub(r".*.//", " ", self.url)
             if "www." in extractor:
                 domain = extractor[5:]
             else:
@@ -85,7 +84,7 @@ class ProxyCrawler:
                     print("Found " + domain + " at page index " + str(page_index))
                     found_link.click()
                 time.sleep(5 + random.random())
-                if not domain in browser2.current_url:
+                if domain not in browser2.current_url:
                     time.sleep(random.randint(5, 10) + random.random())
                     try:
                         browser2.find_element_by_link_text(str(page_index + 1)).click()
