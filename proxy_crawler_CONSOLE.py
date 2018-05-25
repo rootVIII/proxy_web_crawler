@@ -68,7 +68,7 @@ class ProxyCrawler:
             page_index = 0
             extractor = re.sub(r".*//", "", self.url)
             if "www." in extractor:
-                domain = extractor[5:]
+                domain = extractor[4:]
             else:
                 domain = extractor
             while domain not in browser2.current_url:
