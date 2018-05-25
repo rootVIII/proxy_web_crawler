@@ -90,9 +90,15 @@ class ProxyCrawler:
                         browser2.find_element_by_link_text(str(page_index + 1)).click()
                     except:
                         print("Exception occurred: trying next socket")
+                        browser2.quit()
                         break
                 else:
                     page_index = 0
+            if not domain in browser2.current_url:
+                print("trying next socket...")
+                browser2.quit()
+                time.sleep(1 + random.random())
+                continue
             time.sleep(random.randint(30, 60) + random.random())
             target_page_links = browser2.find_elements_by_xpath("//a[@href]")
             random_page_num = random.randint(0, len(target_page_links) - 1)
@@ -102,7 +108,9 @@ class ProxyCrawler:
                 target_link.click()
             except:
                 print("Invalid target link... retrying with next socket")
-                break
+                browser2.quit()
+                time.sleep(1 + random.random())
+                continue
             time.sleep(random.randint(10, 15) + random.random())
             print("visiting random page:   " + browser2.current_url)
             time.sleep(random.randint(30, 60) + random.random())
