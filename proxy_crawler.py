@@ -65,7 +65,7 @@ class ProxyCrawler:
             sub_button.send_keys(Keys.RETURN)
             time.sleep(random.randint(20, 30) + random.random())
             page_index = 0
-            extractor = re.sub(r".*.//", " ", self.url)
+            extractor = re.sub(r".*//", "", self.url)
             if "www." in extractor:
                 domain = extractor[5:]
             else:
