@@ -76,9 +76,13 @@ class ProxyCrawler:
                 page_links = browser2.find_elements_by_xpath("//a[@href]")
                 found_link = ""
                 for link in page_links:
-                    if domain in link.get_attribute("href"):
-                        time.sleep(1)
-                        found_link = link
+                    try:
+                        if domain in link.get_attribute("href"):
+                            time.sleep(1)
+                            found_link = link
+                    except:
+                        print("stale element")
+                        browser2.close()
                         break
                 if found_link:
                     print("Found " + domain + " at page index " + str(page_index))
@@ -95,7 +99,11 @@ class ProxyCrawler:
                 else:
                     page_index = 0
             time.sleep(random.randint(30, 60) + random.random())
-            target_page_links = browser2.find_elements_by_xpath("//a[@href]")
+            try:
+                target_page_links = browser2.find_elements_by_xpath("//a[@href]")
+            except:
+                browser2.quit()
+                continue
             random_page_num = random.randint(0, len(target_page_links) - 1)
             time.sleep(random.randint(30, 60) + random.random())
             target_link = target_page_links[random_page_num]
