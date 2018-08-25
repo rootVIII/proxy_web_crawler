@@ -11,9 +11,10 @@ import random
 import re
 from pyvirtualdisplay import Display
 
+
 # this version is the same as proxy_crawler.py. However no GUI is shown (console only)
 # search for a given website by a string of text using a different proxy each time
-# page indexes are printed to the console (including final index of the site
+# page indexes are printed to the console (including final index of the site)
 # once the site is found, a random link on the site will be clicked
 class ProxyCrawler:
     def __init__(self, URL, keyword, socket_list=[]):
