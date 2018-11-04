@@ -21,11 +21,11 @@ The website is then visited, and one link is randomly clicked within the website
 <br><br>
 Due to the slow performance of most (but not all) proxy servers, it's important to
 <i>slow</i> the bot down using the built in time module.
-<br><br>
+<br><br><b>
 proxy_crawler_CONSOLE.py is the same exact script but uses pyvirtualdisplay to restrict
 output to the console (NO GUI). The package "xvfb" may need to be installed along with
 pyvirtualdisplay.
-<br><br>
+</b><br><br>
 This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 60.0
 <br><br>
 I use this version of geckodriver on Ubuntu:
