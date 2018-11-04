@@ -30,7 +30,7 @@ This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 6
 <br><br>
 I use this version of geckodriver on Ubuntu:
 <br><br>
-<b>wget https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz</b>
+<b>wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz</b>
 <br><br>
 Geckodriver should be saved somewhere in your PATH... ie: /usr/local/bin
 <hr>
