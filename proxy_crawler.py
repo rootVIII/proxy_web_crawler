@@ -1,7 +1,5 @@
 #! /usr/bin/python3
-# James Loye Colley
-# 22MAY2018
-# https://www.roboshout.com
+# roboshout.com
 import sys
 import time
 from selenium import webdriver
@@ -11,9 +9,11 @@ import random
 import re
 
 
-# search for a given website by a string of text using a different proxy each time
-# page indexes are printed to the console (including final index of the site)
-# once the site is found, a random link on the site will be clicked
+# search for a given website by a string of text
+# using a different proxy each time page indexes are
+# printed to the console (including final index of the site)
+# once the site is found, a random link on the site
+# will be clicked
 class ProxyCrawler:
     def __init__(self, URL, keyword, socket_list=[]):
         self.__scrape_socket()
@@ -32,7 +32,8 @@ class ProxyCrawler:
         browser1.quit()
         self.socket_list = re.findall("\d+.\d+.\d+.\d+\s+\d+", string_builder)
 
-    # search with the given proxy. If an exception occurs, the loop continues and the next proxy is used
+    # search with the given proxy. If an exception occurs,
+    # the loop continues and the next proxy is used
     def start_search(self):
         for socket in self.socket_list:
             temp_socket = socket.split()
@@ -85,14 +86,15 @@ class ProxyCrawler:
                         browser2.quit()
                         break
                 if found_link:
-                    print("Found " + domain + " at page index " + str(page_index))
+                    print("Found " + domain + " at index " + str(page_index))
                     found_link.click()
                 time.sleep(5 + random.random())
                 try:
-                    if not domain in browser2.current_url:
+                    if domain not in browser2.current_url:
                         time.sleep(random.randint(5, 10) + random.random())
                         try:
-                            browser2.find_element_by_link_text(str(page_index + 1)).click()
+                            idx = str(page_index + 1)
+                            browser2.find_element_by_link_text(idx).click()
                         except:
                             print("Exception occurred: trying next socket")
                             browser2.quit()
@@ -105,13 +107,13 @@ class ProxyCrawler:
                     break
             time.sleep(random.randint(30, 60) + random.random())
             try:
-                target_page_links = browser2.find_elements_by_xpath("//a[@href]")
+                target_links = browser2.find_elements_by_xpath("//a[@href]")
             except:
                 browser2.quit()
                 continue
-            random_page_num = random.randint(0, len(target_page_links) - 1)
+            random_page_num = random.randint(0, len(target_links) - 1)
             time.sleep(random.randint(30, 60) + random.random())
-            target_link = target_page_links[random_page_num]
+            target_link = target_links[random_page_num]
             try:
                 target_link.click()
             except:
@@ -126,7 +128,7 @@ class ProxyCrawler:
 
 
 if __name__ == "__main__":
-    print("\nPlease enter the FULLY QUALIFIED URL that you want to crawl for...")
+    print("\nEnter a complete URL.")
     url = input("example: https://www.mysite.com\n\n")
     if url[0:7] != "http://" and url[0:8] != "https://":
         print("invalid URL... exiting")
