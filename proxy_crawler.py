@@ -9,10 +9,10 @@ import random
 import re
 
 
-# search for a given website by a string of text
-# using a different proxy each time page indexes are
-# printed to the console (including final index of the site)
-# once the site is found, a random link on the site
+# Search for a given website by a string of text
+# using a different proxy each iteration. Page indexes are
+# printed to the console (including final index of the site).
+# Once the site is found, a random link on the site
 # will be clicked
 class ProxyCrawler:
     def __init__(self, URL, keyword, socket_list=[]):
@@ -33,7 +33,7 @@ class ProxyCrawler:
         self.socket_list = re.findall("\d+.\d+.\d+.\d+\s+\d+", string_builder)
 
     # search with the given proxy. If an exception occurs,
-    # the loop continues and the next proxy is used
+    # the loop continues and the next proxy is used.
     def start_search(self):
         for socket in self.socket_list:
             temp_socket = socket.split()
