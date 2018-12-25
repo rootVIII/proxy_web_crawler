@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 # roboshout.com
-import sys
-import time
+from sys import argv, exit
+from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.proxy import *
 from selenium.webdriver.common.keys import Keys
@@ -25,7 +25,7 @@ class ProxyCrawler:
         string_builder = ""
         browser1 = webdriver.Firefox()
         browser1.get("https://www.sslproxies.org/")
-        time.sleep(2)
+        sleep(2)
         td_tags = browser1.find_elements_by_tag_name('td')
         for tag in td_tags:
             string_builder += tag.text + " "
@@ -60,11 +60,11 @@ class ProxyCrawler:
             print("searching for keyword(s):   " + self.keyword)
             search_box = browser2.find_element_by_name("q")
             sub_button = browser2.find_element_by_name("go")
-            time.sleep(random.randint(20, 30) + random.random())
+            sleep(random.randint(20, 30) + random.random())
             search_box.send_keys(self.keyword)
-            time.sleep(random.randint(20, 30) + random.random())
+            sleep(random.randint(20, 30) + random.random())
             sub_button.send_keys(Keys.RETURN)
-            time.sleep(random.randint(20, 30) + random.random())
+            sleep(random.randint(20, 30) + random.random())
             page_index = 0
             extractor = re.sub(r".*//", "", self.url)
             if "www." in extractor:
@@ -79,7 +79,7 @@ class ProxyCrawler:
                 for link in page_links:
                     try:
                         if domain in link.get_attribute("href"):
-                            time.sleep(1)
+                            sleep(1)
                             found_link = link
                     except:
                         print("stale element")
@@ -88,10 +88,10 @@ class ProxyCrawler:
                 if found_link:
                     print("Found " + domain + " at index " + str(page_index))
                     found_link.click()
-                time.sleep(5 + random.random())
+                sleep(5 + random.random())
                 try:
                     if domain not in browser2.current_url:
-                        time.sleep(random.randint(5, 10) + random.random())
+                        sleep(random.randint(5, 10) + random.random())
                         try:
                             idx = str(page_index + 1)
                             browser2.find_element_by_link_text(idx).click()
@@ -105,38 +105,38 @@ class ProxyCrawler:
                     print("Exception occurred: trying next socket")
                     browser2.quit()
                     break
-            time.sleep(random.randint(30, 60) + random.random())
+            sleep(random.randint(30, 60) + random.random())
             try:
                 target_links = browser2.find_elements_by_xpath("//a[@href]")
             except:
                 browser2.quit()
                 continue
             random_page_num = random.randint(0, len(target_links) - 1)
-            time.sleep(random.randint(30, 60) + random.random())
+            sleep(random.randint(30, 60) + random.random())
             target_link = target_links[random_page_num]
             try:
                 target_link.click()
             except:
                 print("Invalid target link... retrying with next socket")
                 browser2.quit()
-                time.sleep(1 + random.random())
+                sleep(1 + random.random())
                 continue
-            time.sleep(random.randint(10, 15) + random.random())
+            sleep(random.randint(10, 15) + random.random())
             print("visiting random page:   " + browser2.current_url)
-            time.sleep(random.randint(30, 60) + random.random())
+            sleep(random.randint(30, 60) + random.random())
             browser2.quit()
 
 
 if __name__ == "__main__":
-    print("\nEnter a complete URL.")
-    url = input("example: https://www.mysite.com\n\n")
-    if url[0:7] != "http://" and url[0:8] != "https://":
+    if len(argv) < 3:
+        print('USAGE:')
+        print('python3 https://somesite.com keyword1 keyword2 ...')
+        print('Pass a complete URL and at least 1 search keyword')
+        exit()
+    if argv[1][:7] != "http://" and argv[1][:8] != "https://":
         print("invalid URL... exiting")
-        sys.exit()
-    keywd = input("\nWhat keyword(s) would you like to search for?\n\n")
-    if len(keywd) < 1:
-        print("Please enter a keyword... exiting")
-        sys.exit()
-    bot = ProxyCrawler(url, keywd)
+        exit()
+    keywd = ' '.join(argv[2:])
+    bot = ProxyCrawler(argv[1], keywd)
     while True:
         bot.start_search()

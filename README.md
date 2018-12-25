@@ -2,7 +2,13 @@
 This script automates the process of searching for a website via keywords
 and the Bing search engine.... page after page.
 <br><br>
-When prompted, give it a fully qualified URL and then a search term, keyword, or phrase
+Pass a complete URL and at least 1 keyword as command line arguments:
+<br>
+python3 https://www.roboshout.com texts
+<br><br>
+Or with multiple search terms:
+<br>
+python3 https://site.com keyword1 keyword2 keyword2 ....
 <br><br>
 It first scrapes a list of proxies from the web
 using <a href="https://www.sslproxies.org">SSL Proxies</a>.
