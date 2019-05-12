@@ -40,9 +40,10 @@ pip install requests
 <br>
 I use this version of geckodriver on Ubuntu:
 <br><br>
-wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
+<code>wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz</code>
 <br><br>
 geckodriver should be saved somewhere in your PATH... ie: <code>/usr/local/bin</code>
 <hr>
 This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 60.0
+<br>
 <b>Author: James Loye Colley  22MAY2018</b>
