@@ -4,18 +4,19 @@ and the Bing search engine.... page after page.
 <br><br>
 Pass a complete URL and at least 1 keyword as command line arguments:
 <br>
-python3 https://www.roboshout.com texts
+python proxy_crawler.py -u https://www.example.com -k keyword
 <br><br>
-Or with multiple search terms:
+or if you would like to see the browser while crawling add the -d flag
 <br>
-python3 https://site.com keyword1 keyword2 keyword2 ....
+python proxy_crawler.py -u https://www.example.com -k keyword -d
 <br><br>
+
 It first scrapes a list of proxies from the web
 using <a href="https://www.sslproxies.org">SSL Proxies</a>.
 <br><br>
 When the object is initialized in the constructor, the following method is called:
 <br><br>
-self.__scrape_socket()
+<code>self.scrape_socket()</code>
 <br><br>
 This saves each ip/port for each proxy server into a list after scraping the table
 of proxy servers from sslproxies.org.
@@ -25,19 +26,23 @@ searched for via https://www.bing.com until the desired website is found.
 <br><br>
 The website is then visited, and one link is randomly clicked within the website.
 <br><br>
-Due to the slow performance of most (but not all) proxy servers, it's important to
-<i>slow</i> the bot down using the built in time module.
-<br><br><b>
-proxy_crawler_CONSOLE.py is the same exact script but uses pyvirtualdisplay to restrict
-output to the console (NO GUI). The package "xvfb" may need to be installed along with
-pyvirtualdisplay.
-</b><br><br>
-This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 60.0
+The bot is slowed down on purpose.
+<br><br>
+Along with Python 3 and geckodriver, the following are also required:
+<pre>
+    <code>
+apt-get install xfvb
+pip install pyvirtualdisplay
+pip install selenium
+pip install requests
+    </code>
+</pre>
 <br><br>
 I use this version of geckodriver on Ubuntu:
 <br><br>
-<b>wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz</b>
+wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
 <br><br>
-Geckodriver should be saved somewhere in your PATH... ie: /usr/local/bin
+geckodriver should be saved somewhere in your PATH... ie: /usr/local/bin
 <hr>
+This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 60.0
 <b>Author: James Loye Colley  22MAY2018</b>
