@@ -24,7 +24,7 @@ of proxy servers from sslproxies.org.
 Then using a new socket from the list for each iteration, the keyword is
 searched for via https://www.bing.com until the desired website is found.
 <br><br>
-The website is then visited, and one link is randomly clicked within the website.
+The website is then visited, and one random link is clicked within the website.
 <br><br>
 The bot is slowed down on purpose.
 <br><br>
