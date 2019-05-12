@@ -46,4 +46,6 @@ geckodriver should be saved somewhere in your PATH... ie: <code>/usr/local/bin</
 <hr>
 This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 60.0
 <br>
+Also tested on Ubuntu 18.04
+<br>
 <b>Author: James Loye Colley  22MAY2018</b>
