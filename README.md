@@ -1,5 +1,5 @@
 ## search for a website with a different proxy each time
-This script automates the process of searching for a website via keywords
+This script automates the process of searching for a website via keyword
 and the Bing search engine.... page after page.
 <br><br>
 Pass a complete URL and at least 1 keyword as command line arguments:
