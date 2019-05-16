@@ -17,6 +17,7 @@ class ProxyCrawler:
         self.socket_list = []
         self.keyword = keyword
         self.url = url
+        self.scrape_socket()
 
     # Use urllib/requests here if desired.
     def scrape_socket(self):
@@ -137,13 +138,12 @@ if __name__ == "__main__":
     if req.status_code != 200:
         print('Invalid URL')
         exit(1)
-    bot = ProxyCrawler(d.url, d.keyword)
     if not d.display:
         with Display():
             while True:
-                bot.scrape_socket()
+                bot = ProxyCrawler(d.url, d.keyword)
                 bot.start_search()
     else:
         while True:
-            bot.scrape_socket()
+            bot = ProxyCrawler(d.url, d.keyword)
             bot.start_search()
