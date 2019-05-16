@@ -1,4 +1,5 @@
 #! /usr/bin/python3
+# rootVIII
 from sys import exit
 from time import sleep
 from selenium import webdriver
@@ -11,21 +12,13 @@ from random import randint, random
 from requests import get
 
 
-# Search for a given website by a string of text
-# using a different proxy each iteration.
-# Page indexes are printed to the console including
-# final index of the site.
-# Once the site is found, a random link on the site
-# will be clicked.
 class ProxyCrawler:
     def __init__(self, url, keyword):
         self.socket_list = []
         self.keyword = keyword
         self.url = url
-        self.scrape_socket()
 
-    # Get a list of sockets from https://www.sslproxies.org.
-    # Use http lib/requests here if desired.
+    # Use urllib/requests here if desired.
     def scrape_socket(self):
         string_builder = ""
         temp_browser = webdriver.Firefox()
@@ -37,8 +30,6 @@ class ProxyCrawler:
         pattern = r"\d+.\d+.\d+.\d+\s+\d+"
         self.socket_list = findall(pattern, string_builder)
 
-    # Search with the given proxy.
-    # If an exception occurs, loop continues and the next proxy is used.
     def start_search(self):
         for socket in self.socket_list:
             temp_socket = socket.split()
@@ -61,7 +52,7 @@ class ProxyCrawler:
                 browser.quit()
                 continue
             print("using socket: " + PROXY_HOST + ":" + PROXY_PORT)
-            print("searching for keyword(s):   " + self.keyword)
+            print("searching for keyword(s):   %s" % self.keyword)
             search_box = browser.find_element_by_name("q")
             sub_button = browser.find_element_by_name("go")
             sleep(randint(20, 30) + random())
@@ -77,9 +68,9 @@ class ProxyCrawler:
                 domain = extractor
             while domain not in browser.current_url:
                 page_index += 1
-                print("current index:   " + str(page_index))
+                print("current index:   %s" % str(page_index))
                 page_links = browser.find_elements_by_xpath("//a[@href]")
-                found_link = ""
+                found_link = ''
                 for link in page_links:
                     try:
                         if domain in link.get_attribute("href"):
@@ -90,7 +81,7 @@ class ProxyCrawler:
                         browser.quit()
                         break
                 if found_link:
-                    print("Found " + domain + " at index " + str(page_index))
+                    print("Found %s at index %d" % (domain, page_index))
                     found_link.click()
                 sleep(5 + random())
                 try:
@@ -123,7 +114,6 @@ class ProxyCrawler:
             except Exception:
                 print("Invalid target link... retrying with next socket")
                 browser.quit()
-                sleep(1 + random())
                 continue
             sleep(randint(10, 15) + random())
             print("visiting random page:   " + browser.current_url)
@@ -141,18 +131,19 @@ if __name__ == "__main__":
     d = parser.parse_args()
     try:
         req = get(d.url)
-    except Exception as e:
-        print(e)
+    except Exception:
+        print('Unable to make request to %s' % d.url)
         exit(1)
     if req.status_code != 200:
         print('Invalid URL')
         exit(1)
+    bot = ProxyCrawler(d.url, d.keyword)
     if not d.display:
         with Display():
             while True:
-                bot = ProxyCrawler(d.url, d.keyword)
+                bot.scrape_socket()
                 bot.start_search()
     else:
         while True:
-            bot = ProxyCrawler(d.url, d.keyword)
+            bot.scrape_socket()
             bot.start_search()
