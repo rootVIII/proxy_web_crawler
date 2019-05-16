@@ -14,15 +14,8 @@ or if you would like to see the browser while crawling add the -d flag
 It first scrapes a list of proxies from the web
 using <a href="https://www.sslproxies.org">SSL Proxies</a>.
 <br><br>
-When the object is initialized in the constructor, the following method is called:
-<br><br>
-<code>self.scrape_socket()</code>
-<br><br>
-This saves each ip/port for each proxy server into a list after scraping the table
-of proxy servers from sslproxies.org.
-<br><br>
-Then using a new socket from the list for each iteration, the keyword is
-searched for via https://www.bing.com until the desired website is found.
+Then using a new proxy socket for each iteration, the specified <b>keyword</b>
+is searched for via Bing until the desired <b>website</b> is found.
 <br><br>
 The website is then visited, and one random link is clicked within the website.
 <br><br>
