@@ -20,6 +20,8 @@ class ProxyCrawler:
         self.fp = None
         self.browser = None
         self.request_count = 0
+        # request_MAX: # of requests to be made
+        # before refreshing the list of proxies
         self.request_MAX = 5
         self.scrape_sockets()
 
