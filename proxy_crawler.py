@@ -20,7 +20,7 @@ class ProxyCrawler:
         self.fp = None
         self.browser = None
         self.request_count = 0
-        self.request_MAX = 3
+        self.request_MAX = 5
         self.scrape_socket()
 
     def set_current_proxy(self):
