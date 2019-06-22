@@ -44,7 +44,7 @@ I use this version of geckodriver on Ubuntu:
 <br><br>
 geckodriver should be saved somewhere in your PATH... ie: <code>/usr/local/bin</code>
 <hr>
-<img src="https://github.com/rootVIII/proxy_web_crawler/blob/master/sc.png" alt="screenshot" height="675" width="950"><hr>
+<img src="https://github.com/rootVIII/proxy_web_crawler/blob/master/sc.png" alt="screenshot" height="675" width="800"><hr>
 <hr>
 This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 60.0
 <br>
