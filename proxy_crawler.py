@@ -36,6 +36,7 @@ class ProxyCrawler:
     # Use urllib/requests here if desired...
     # It would be much faster
     def scrape_socket(self):
+        print('acquiring proxies')
         string_builder = ''
         temp_browser = webdriver.Firefox()
         temp_browser.get('https://www.sslproxies.org/')
@@ -74,7 +75,7 @@ class ProxyCrawler:
                 if self.url in link.get_attribute("href"):
                     found_link = link
             if found_link:
-                print("Found %s at index %d" % (self.url, page_index))
+                print("found %s at index %d" % (self.url, page_index))
                 found_link.click()
             self.random_sleep('short')
             if self.url not in self.browser.current_url:
