@@ -19,6 +19,8 @@ class ProxyCrawler:
         self.proxy_port = 0
         self.fp = None
         self.browser = None
+        self.request_count = 0
+        self.request_MAX = 5
         self.scrape_socket()
 
     def set_current_proxy(self):
@@ -100,6 +102,11 @@ class ProxyCrawler:
                 continue
             else:
                 self.browser.quit()
+            finally:
+                self.request_count += 1
+                if self.request_count > self.request_MAX:
+                    self.request_count = 0
+                    self.scrape_socket()
 
     # Add/remove desired user-agents below
     @staticmethod
