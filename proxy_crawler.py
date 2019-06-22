@@ -12,7 +12,7 @@ from requests import get
 
 class ProxyCrawler:
     def __init__(self, url, keyword):
-        self.socket_list = []
+        self.sockets = []
         self.keyword = keyword
         self.url = url
         self.proxy_host = ''
@@ -21,7 +21,7 @@ class ProxyCrawler:
         self.browser = None
         self.request_count = 0
         self.request_MAX = 5
-        self.scrape_socket()
+        self.scrape_sockets()
 
     def set_current_proxy(self):
         self.fp = webdriver.FirefoxProfile()
@@ -33,22 +33,15 @@ class ProxyCrawler:
         self.fp.set_preference('general.useragent.override', self.agent())
         self.fp.update_preferences()
 
-    # Use urllib/requests here if desired...
-    # It would be much faster
-    def scrape_socket(self):
-        print('acquiring proxies')
-        string_builder = ''
-        temp_browser = webdriver.Firefox()
-        temp_browser.get('https://www.sslproxies.org/')
-        td_tags = temp_browser.find_elements_by_tag_name('td')
-        for tag in td_tags:
-            string_builder += tag.text + ' '
-        temp_browser.quit()
-        pattern = r"\d+.\d+.\d+.\d+\s+\d+"
-        self.socket_list = findall(pattern, string_builder)
+    def scrape_sockets(self):
+        print('acquiring new proxies')
+        r = get("https://www.sslproxies.org/")
+        matches = findall(r"<td>\d+\.\d+\.\d+\.\d+</td><td>\d+</td>", r.text)
+        revised = [m.replace('<td>', '') for m in matches]
+        self.sockets = [s[:-5].replace('</td>', ':') for s in revised]
 
     def search(self, socket):
-        temp_socket = socket.split()
+        temp_socket = socket.split(':')
         self.proxy_host = temp_socket[0]
         self.proxy_port = int(temp_socket[1])
         self.set_current_proxy()
@@ -93,7 +86,7 @@ class ProxyCrawler:
         self.random_sleep('short')
 
     def start_search(self):
-        for socket in self.socket_list:
+        for socket in self.sockets:
             try:
                 self.search(socket)
             except Exception as e:
@@ -107,7 +100,7 @@ class ProxyCrawler:
                 self.request_count += 1
                 if self.request_count > self.request_MAX:
                     self.request_count = 0
-                    self.scrape_socket()
+                    self.scrape_sockets()
 
     # Add/remove desired user-agents below
     @staticmethod
@@ -149,15 +142,9 @@ if __name__ == "__main__":
     parser.add_argument('-u', '--url', required=True, help='url')
     parser.add_argument('-k', '--keyword', required=True, help='keyword')
     d = parser.parse_args()
-    try:
-        req = get(d.url)
-    except Exception:
-        print('Unable to make request to %s' % d.url)
+    if 'http://' not in d.url and 'https://' not in d.url:
+        print("please use an absolute URL")
         exit(1)
-    else:
-        if req.status_code != 200:
-            print('Invalid URL')
-            exit(1)
     while True:
         bot = ProxyCrawler(d.url, d.keyword)
         bot.start_search()
