@@ -20,17 +20,17 @@ class ProxyCrawler:
         self.fp = None
         self.browser = None
         self.request_count = 0
-        self.request_MAX = 5
+        self.request_MAX = 3
         self.scrape_socket()
 
     def set_current_proxy(self):
         self.fp = webdriver.FirefoxProfile()
-        self.fp.set_preference("network.proxy.type", 1)
-        self.fp.set_preference("network.proxy.http", self.proxy_host)
-        self.fp.set_preference("network.proxy.http_port", self.proxy_port)
-        self.fp.set_preference("network.proxy.ssl", self.proxy_host)
-        self.fp.set_preference("network.proxy.ssl_port", self.proxy_port)
-        self.fp.set_preference("general.useragent.override", self.agent())
+        self.fp.set_preference('network.proxy.type', 1)
+        self.fp.set_preference('network.proxy.http', self.proxy_host)
+        self.fp.set_preference('network.proxy.http_port', self.proxy_port)
+        self.fp.set_preference('network.proxy.ssl', self.proxy_host)
+        self.fp.set_preference('network.proxy.ssl_port', self.proxy_port)
+        self.fp.set_preference('general.useragent.override', self.agent())
         self.fp.update_preferences()
 
     # Use urllib/requests here if desired...
@@ -42,7 +42,7 @@ class ProxyCrawler:
         temp_browser.get('https://www.sslproxies.org/')
         td_tags = temp_browser.find_elements_by_tag_name('td')
         for tag in td_tags:
-            string_builder += tag.text + " "
+            string_builder += tag.text + ' '
         temp_browser.quit()
         pattern = r"\d+.\d+.\d+.\d+\s+\d+"
         self.socket_list = findall(pattern, string_builder)
@@ -54,12 +54,12 @@ class ProxyCrawler:
         self.set_current_proxy()
         self.browser = webdriver.Firefox(firefox_profile=self.fp)
         self.browser.get('https://www.bing.com/')
-        assert "Bing" in self.browser.title
-        print("using socket: %s:%d" % (self.proxy_host, self.proxy_port))
-        print("searching for keyword(s):   %s" % self.keyword)
+        assert 'Bing' in self.browser.title
+        print('using socket: %s:%d' % (self.proxy_host, self.proxy_port))
+        print('searching for keyword(s):   %s' % self.keyword)
         self.random_sleep('short')
-        search_box = self.browser.find_element_by_name("q")
-        sub_button = self.browser.find_element_by_name("go")
+        search_box = self.browser.find_element_by_name('q')
+        sub_button = self.browser.find_element_by_name('go')
         self.random_sleep('short')
         search_box.send_keys(self.keyword)
         self.random_sleep('long')
@@ -68,14 +68,14 @@ class ProxyCrawler:
         page_index = 0
         while self.url not in self.browser.current_url:
             page_index += 1
-            print("current index:   %s" % str(page_index))
+            print('current index:   %s' % str(page_index))
             page_links = self.browser.find_elements_by_xpath("//a[@href]")
             found_link = ''
             for link in page_links:
-                if self.url in link.get_attribute("href"):
+                if self.url in link.get_attribute('href'):
                     found_link = link
             if found_link:
-                print("found %s at index %d" % (self.url, page_index))
+                print('found %s at index %d' % (self.url, page_index))
                 found_link.click()
             self.random_sleep('short')
             if self.url not in self.browser.current_url:
@@ -89,7 +89,7 @@ class ProxyCrawler:
         target_link = target_links[random_page_num]
         target_link.click()
         self.random_sleep('long')
-        print("visiting random page: " + self.browser.current_url)
+        print('visiting random page: ' + self.browser.current_url)
         self.random_sleep('short')
 
     def start_search(self):
