@@ -6,7 +6,7 @@ Pass a complete URL and at least 1 keyword as command line arguments:
 <br>
 <code>python proxy_crawler.py -u https://www.example.com -k keyword</code>
 <br><br>
-<code>python proxy_crawler.py -u https://www.whatsmyip.org -k "my ip" -d</code>
+<code>python proxy_crawler.py -u https://www.whatsmyip.org -k "my ip"</code>
 <br>
 <ul>
     <li>
