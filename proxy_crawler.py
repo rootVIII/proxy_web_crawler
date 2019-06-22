@@ -149,7 +149,7 @@ if __name__ == "__main__":
     parser.add_argument('-k', '--keyword', required=True, help='keyword')
     d = parser.parse_args()
     if 'http://' not in d.url and 'https://' not in d.url:
-        print("please use an absolute URL")
+        print('please use an absolute URL')
         exit(1)
     while True:
         bot = ProxyCrawler(d.url, d.keyword)
