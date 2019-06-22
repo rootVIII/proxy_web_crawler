@@ -12,7 +12,7 @@ from requests import get
 
 class ProxyCrawler:
     def __init__(self, url, keyword):
-        self.sockets = []
+        self.sockets, self.agents = [], []
         self.keyword = keyword
         self.url = url
         self.proxy_host = ''
@@ -23,7 +23,15 @@ class ProxyCrawler:
         # request_MAX: # of requests to be made
         # before refreshing the list of proxies
         self.request_MAX = 5
+        self.set_agents()
         self.scrape_sockets()
+
+    @staticmethod
+    def random_sleep(length):
+        if length != 'long':
+            sleep(randint(5, 10) + random())
+        else:
+            sleep(randint(30, 60) + random())
 
     def set_current_proxy(self):
         self.fp = webdriver.FirefoxProfile()
@@ -43,6 +51,7 @@ class ProxyCrawler:
         self.sockets = [s[:-5].replace('</td>', ':') for s in revised]
 
     def search(self, socket):
+        print('starting search')
         temp_socket = socket.split(':')
         self.proxy_host = temp_socket[0]
         self.proxy_port = int(temp_socket[1])
@@ -92,8 +101,9 @@ class ProxyCrawler:
             try:
                 self.search(socket)
             except Exception as e:
+                print('exception caught')
                 print(type(e).__name__, e)
-                print('Trying next socket...')
+                print('trying next socket...')
                 self.browser.quit()
                 continue
             else:
@@ -104,10 +114,12 @@ class ProxyCrawler:
                     self.request_count = 0
                     self.scrape_sockets()
 
+    def agent(self):
+        return self.agents[randint(0, len(self.agents) - 1)]
+
     # Add/remove desired user-agents below
-    @staticmethod
-    def agent():
-        agents = [
+    def set_agents(self):
+        self.agents = [
             "Opera/9.80 (S60; SymbOS; Opera Mobi/498; U; sv)",
             "Mozilla/2.02 [fr] (WinNT; I)",
             "WeatherReport/1.2.2 CFNetwork/485.12.7 Darwin/10.4.0",
@@ -127,14 +139,6 @@ class ProxyCrawler:
             "msnbot-Products/1.0 (+http://search.msn.com/msnbot.htm)",
             "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;)"
         ]
-        return agents[randint(0, len(agents) - 1)]
-
-    @staticmethod
-    def random_sleep(length):
-        if length != 'long':
-            sleep(randint(5, 10) + random())
-        else:
-            sleep(randint(30, 60) + random())
 
 
 if __name__ == "__main__":
