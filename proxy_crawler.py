@@ -101,14 +101,12 @@ class ProxyCrawler:
             try:
                 self.search(socket)
             except Exception as e:
-                print('exception caught')
+                print('\nexception caught:')
                 print(type(e).__name__, e)
                 print('trying next socket...')
-                self.browser.quit()
                 continue
-            else:
-                self.browser.quit()
             finally:
+                self.browser.quit()
                 self.request_count += 1
                 if self.request_count > self.request_MAX:
                     self.request_count = 0
