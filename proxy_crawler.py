@@ -63,11 +63,10 @@ class ProxyCrawler:
         print('searching for keyword(s):   %s' % self.keyword)
         self.random_sleep('short')
         search_box = self.browser.find_element_by_name('q')
-        sub_button = self.browser.find_element_by_name('go')
         self.random_sleep('short')
         search_box.send_keys(self.keyword)
         self.random_sleep('long')
-        sub_button.send_keys(Keys.RETURN)
+        search_box.send_keys(Keys.RETURN)
         self.random_sleep('long')
         page_index = 0
         while self.url not in self.browser.current_url:
