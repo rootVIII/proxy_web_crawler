@@ -75,9 +75,9 @@ class ProxyCrawler:
             print('current index:   %s' % str(page_index))
             page_links = self.browser.find_elements_by_xpath("//a[@href]")
             for link in page_links:
-                print('found %s at index %d' % (self.url, page_index))
                 if self.url in link.get_attribute('href'):
                     link.click()
+                    print('found %s at index %d' % (self.url, page_index))
             self.random_sleep('short')
             if self.url not in self.browser.current_url:
                 self.random_sleep('short')
