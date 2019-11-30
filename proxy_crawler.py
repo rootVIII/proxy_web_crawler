@@ -1,13 +1,14 @@
 #! /usr/bin/python3
 # rootVIII
-from sys import exit
-from time import sleep
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from re import findall
 from argparse import ArgumentParser
+from re import findall
 from random import randint, random
 from requests import get
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from sys import exit
+from threading import Thread
+from time import sleep
 
 
 class ProxyCrawler:
@@ -73,13 +74,10 @@ class ProxyCrawler:
             page_index += 1
             print('current index:   %s' % str(page_index))
             page_links = self.browser.find_elements_by_xpath("//a[@href]")
-            found_link = ''
             for link in page_links:
-                if self.url in link.get_attribute('href'):
-                    found_link = link
-            if found_link:
                 print('found %s at index %d' % (self.url, page_index))
-                found_link.click()
+                if self.url in link.get_attribute('href'):
+                    link.click()
             self.random_sleep('short')
             if self.url not in self.browser.current_url:
                 self.random_sleep('short')
@@ -138,6 +136,12 @@ class ProxyCrawler:
         ]
 
 
+def main():
+    while True:
+        bot = ProxyCrawler(d.url, d.keyword)
+        bot.start_search()
+
+
 if __name__ == "__main__":
     description = 'Usage: python proxy_crawler.py -u '
     description += '<https://example.com> -k <search keyword>'
@@ -148,6 +152,10 @@ if __name__ == "__main__":
     if 'http://' not in d.url and 'https://' not in d.url:
         print('please use an absolute URL')
         exit(1)
-    while True:
-        bot = ProxyCrawler(d.url, d.keyword)
-        bot.start_search()
+    try:
+        thread = Thread(target=main)
+        thread.daemon = True
+        thread.start()
+        thread.join()
+    except KeyboardInterrupt:
+        print('\nExiting\n')
