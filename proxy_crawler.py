@@ -78,6 +78,7 @@ class ProxyCrawler:
                 if self.url in link.get_attribute('href'):
                     link.click()
                     print('found %s at index %d' % (self.url, page_index))
+                    break
             self.random_sleep('short')
             if self.url not in self.browser.current_url:
                 self.random_sleep('short')
