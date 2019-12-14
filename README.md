@@ -50,4 +50,4 @@ This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 6
 <br>
 Also tested on Ubuntu 18.04
 <br>
-<b>Author: James Loye Colley  22MAY2018</b>
+<b>Author: rootVIII  22MAY2018</b>
