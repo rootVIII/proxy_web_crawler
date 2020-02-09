@@ -70,29 +70,38 @@ class ProxyCrawler:
         search_box.send_keys(Keys.RETURN)
         self.random_sleep('long')
         page_index = 0
-        while self.url not in self.browser.current_url:
+
+        # Search until the desired URL is found
+        while True:
             page_index += 1
-            print('current index:   %s' % str(page_index))
+            print('current index:   %d' % page_index)
             page_links = self.browser.find_elements_by_xpath("//a[@href]")
+            found_link = None
             for link in page_links:
-                if self.url in link.get_attribute('href'):
-                    link.click()
+                if self.url[8:] in link.get_attribute('href'):
                     print('found %s at index %d' % (self.url, page_index))
+                    found_link = link
                     break
-            self.random_sleep('short')
-            if self.url not in self.browser.current_url:
-                self.random_sleep('short')
+            if found_link is not None:
+                found_link.click()
+                break
+            else:
                 idx = str(page_index + 1)
                 self.browser.find_element_by_link_text(idx).click()
+            self.random_sleep('long')
+
+        # Found page
         self.random_sleep('short')
+        while self.url[8:] not in self.browser.current_url:
+            print('Waiting for page to load...')
+            self.random_sleep('short')
         target_links = self.browser.find_elements_by_xpath("//a[@href]")
         random_page_num = randint(0, len(target_links) - 1)
-        self.random_sleep('long')
         target_link = target_links[random_page_num]
         target_link.click()
         self.random_sleep('long')
-        print('visiting random page: ' + self.browser.current_url)
-        self.random_sleep('short')
+        print('Visiting random page: %s' % self.browser.current_url)
+        self.random_sleep('long')
 
     def start_search(self):
         for socket in self.sockets:
@@ -150,8 +159,8 @@ if __name__ == "__main__":
     parser.add_argument('-u', '--url', required=True, help='url')
     parser.add_argument('-k', '--keyword', required=True, help='keyword')
     d = parser.parse_args()
-    if 'http://' not in d.url and 'https://' not in d.url:
-        print('please use an absolute URL')
+    if 'https://' not in d.url:
+        print('Include protocol in URL: https://')
         exit(1)
     try:
         thread = Thread(target=main)
