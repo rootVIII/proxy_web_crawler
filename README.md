@@ -40,9 +40,9 @@ proxy_crawler.py passes pep8/pycodestyle
 <br><br>
 I use this version of geckodriver on Ubuntu:
 <br><br>
-<code>wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz</code>
+<code>wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz</code>
 <br><br>
-geckodriver should be saved somewhere in your PATH... ie: <code>/usr/local/bin</code>
+geckodriver should be unzipped and saved somewhere in your PATH... ie: <code>/usr/local/bin</code>
 <hr>
 <img src="https://github.com/rootVIII/proxy_web_crawler/blob/master/sc.png" alt="screenshot" height="675" width="700"><hr>
 <hr>
