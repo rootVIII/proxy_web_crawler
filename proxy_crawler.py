@@ -86,9 +86,9 @@ class ProxyCrawler:
                 found_link.click()
                 break
             else:
+                self.random_sleep('long')
                 idx = str(page_index + 1)
                 self.browser.find_element_by_link_text(idx).click()
-            self.random_sleep('long')
 
         # Found page
         self.random_sleep('short')
@@ -108,8 +108,7 @@ class ProxyCrawler:
             try:
                 self.search(socket)
             except Exception as e:
-                print('\nexception caught:')
-                print(type(e).__name__, e)
+                print('%s\n: %s' % (type(e).__name__, str(e)))
                 print('trying next socket...')
                 continue
             finally:
