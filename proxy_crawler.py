@@ -98,6 +98,7 @@ class ProxyCrawler:
         target_links = self.browser.find_elements_by_xpath("//a[@href]")
         random_page_num = randint(0, len(target_links) - 1)
         target_link = target_links[random_page_num]
+        self.random_sleep('long')
         target_link.click()
         self.random_sleep('long')
         print('Visiting random page: %s' % self.browser.current_url)
