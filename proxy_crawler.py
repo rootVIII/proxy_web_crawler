@@ -89,7 +89,7 @@ class ProxyCrawler:
                 self.random_sleep('long')
                 idx = str(page_index + 1)
                 self.browser.find_element_by_link_text(idx).click()
-                self.random_sleep('long')
+                self.random_sleep('short')
 
         # Found page
         self.random_sleep('short')
