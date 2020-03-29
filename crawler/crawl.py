@@ -2,12 +2,20 @@ from re import findall
 from random import randint, random
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from sys import platform
 from threading import Thread
 from time import sleep
 from urllib.request import urlopen, Request
 
 
-class ProxyCrawler:
+try:
+    from pyvirtualdisplay import Display
+    xvfb = True
+except ImportError:
+    xvfb = False
+
+
+class ProxyCrawler(object):
     def __init__(self, url, keyword):
         self.sockets, self.agents = [], []
         self.url, self.keyword = url, keyword
@@ -127,8 +135,10 @@ class ProxyCrawler:
     def agent(self):
         return self.agents[randint(0, len(self.agents) - 1)]
 
-    # Add/remove desired user-agents below
     def set_agents(self):
+
+        """ Add/remove desired user-agents """
+
         self.agents = [
             "Opera/9.80 (S60; SymbOS; Opera Mobi/498; U; sv)",
             "Mozilla/2.02 [fr] (WinNT; I)",
@@ -149,3 +159,27 @@ class ProxyCrawler:
             "msnbot-Products/1.0 (+http://search.msn.com/msnbot.htm)",
             "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;)"
         ]
+
+
+class HeadlessProxyCrawler(ProxyCrawler):
+    def __init__(self, url, keyword):
+        super().__init__(url, keyword)
+        if not xvfb or platform == 'win32':
+            raise Exception('Unable to import pyvirtualdisplay')
+        self.url = url
+        self.keyword = keyword
+
+    def start_search(self):
+        for socket in self.sockets:
+            with Display():
+                try:
+                    self.search(socket)
+                except Exception as e:
+                    print('%s: %s' % (type(e).__name__, str(e)))
+                    print('trying next socket...')
+                finally:
+                    self.browser.quit()
+                    self.request_count += 1
+                    if self.request_count > self.request_MAX:
+                        self.request_count = 0
+                        self.scrape_sockets()

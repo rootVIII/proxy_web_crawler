@@ -2,14 +2,18 @@
 # rootVIII | proxy_crawler.py
 from sys import exit
 from threading import Thread
-from crawler.crawl import ProxyCrawler
+from crawler.crawl import ProxyCrawler, HeadlessProxyCrawler
 from crawler.arguments import ArgParser
 
 
 def main():
     while True:
-        bot = ProxyCrawler(args.url, args.keyword)
-        bot.start_search()
+        if not args.headless:
+            bot = ProxyCrawler(args.url, args.keyword)
+            bot.start_search()
+        else:
+            bot = HeadlessProxyCrawler(args.url, args.keyword)
+            bot.start_search()
 
 
 if __name__ == "__main__":
