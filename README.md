@@ -7,7 +7,11 @@ Pass a complete URL and at least 1 keyword as command line arguments:
 <code>python proxy_crawler.py -u https://www.example.com -k keyword</code>
 <br><br>
 <code>python proxy_crawler.py -u https://www.whatsmyip.org -k "my ip"</code>
+<br><br>
+If on a Linux system, proxy_crawler can run headless. Give the -x option (requires XVFB):
 <br>
+<code>python proxy_crawler.py -u https://www.whatsmyip.org -k "my ip" -x</code>
+<br><br>
 <ul>
     <li>
         It first scrapes a list of proxies from the web
@@ -32,6 +36,7 @@ Along with Python 3 and geckodriver, the following are also required:
 <pre>
     <code>
 pip install selenium
+apt-get install xvfb (Linux only)
     </code>
 </pre>
 <br><br>
