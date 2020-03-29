@@ -32,7 +32,6 @@ Along with Python 3 and geckodriver, the following are also required:
 <pre>
     <code>
 pip install selenium
-pip install requests
     </code>
 </pre>
 <br><br>
@@ -50,4 +49,4 @@ This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 6
 <br>
 Also tested on Ubuntu 18.04
 <br>
-<b>Author: rootVIII  22MAY2018</b>
+<b>Author: rootVIII  2018-2020</b>
