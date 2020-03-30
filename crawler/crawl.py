@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from sys import platform
 from time import sleep
 from urllib.request import urlopen, Request
-
+# rootVIII 2018-2020
 
 try:
     from pyvirtualdisplay import Display
@@ -123,9 +123,6 @@ class ProxyCrawler(object):
         return self.agents[randint(0, len(self.agents) - 1)]
 
     def set_agents(self):
-
-        """ Add/remove desired user-agents """
-
         self.agents = [
             "Opera/9.80 (S60; SymbOS; Opera Mobi/498; U; sv)",
             "Mozilla/2.02 [fr] (WinNT; I)",
