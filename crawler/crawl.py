@@ -84,11 +84,11 @@ class ProxyCrawler(object):
             if found_link is not None:
                 found_link.click()
                 break
-            else:
-                self.random_sleep()
-                index = str(page_index + 1)
-                self.browser.find_element_by_link_text(index).click()
-                self.random_sleep(short=True)
+           
+            self.random_sleep()
+            index = str(page_index + 1)
+            self.browser.find_element_by_link_text(index).click()
+            self.random_sleep(short=True)
 
         # Found page
         self.random_sleep(short=True)
