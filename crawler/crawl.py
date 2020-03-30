@@ -3,7 +3,6 @@ from random import randint, random
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from sys import platform
-from threading import Thread
 from time import sleep
 from urllib.request import urlopen, Request
 
@@ -53,25 +52,13 @@ class ProxyCrawler(object):
         revised = [tag.replace('<td>', '') for tag in matches]
         self.sockets = [s[:-5].replace('</td>', ':') for s in revised]
 
-    def request_timer(self):
-        sleep(15)
-        if 'bing' not in self.browser.title.lower():
-            raise
-
     def search(self, socket):
         sock = socket.split(':')
         self.proxy_host, self.proxy_port = sock[0], int(sock[1])
         self.set_current_proxy()
         self.browser = webdriver.Firefox(firefox_profile=self.fp)
-
-        # set a timeout in case proxy takes too long
-        wait_thread = Thread(target=self.request_timer)
-        wait_thread.start()
-        try:
-            self.browser.get('https://www.bing.com/')
-        except Exception:
-            raise Exception('Current socket too slow')
-        wait_thread.join()
+        self.browser.set_page_load_timeout(30)
+        self.browser.get('https://www.bing.com/')
         assert 'Bing' in self.browser.title
         print('searching for keyword(s):   %s' % self.keyword)
         print('socket: %s:%d' % (self.proxy_host, self.proxy_port))
