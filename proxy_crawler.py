@@ -10,10 +10,9 @@ def main():
     while True:
         if not args.headless:
             bot = ProxyCrawler(args.url, args.keyword)
-            bot.start_search()
         else:
             bot = HeadlessProxyCrawler(args.url, args.keyword)
-            bot.start_search()
+        bot.start_search()
 
 
 if __name__ == "__main__":
