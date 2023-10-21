@@ -4,7 +4,7 @@ and the DuckDuckGo search engine.... page after page
 <br><br>
 Pass a complete URL and at least 1 keyword as command line arguments to run program:
 <br>
-<code>python proxy_crawler.py -u &lt;url&gt; -k &lt;keyword&gt;</code>
+<code>python proxy_crawler.py -u &lt;url&gt; -k &lt;keyword(s)&gt;</code>
 <br>
 <code>python proxy_crawler.py -u "https://www.whatsmyip.org" -k "my ip"</code>
 <br><br>
