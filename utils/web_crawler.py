@@ -91,15 +91,13 @@ class ProxyCrawler(object):
     def start_search(self):
         self.scrape_sockets()
         for proxy in self.proxies:
-            self.search(proxy)
-            self.browser.close()
-            # try:
-            #     self.search(proxy)
-            # except KeyboardInterrupt:
-            #     raise KeyboardInterrupt()
-            # except Exception as error:
-            #     print(error)
-            #     print('trying next socket...')
-            # finally:
-            #     if self.browser is not None:
-            #         self.browser.close()
+            try:
+                self.search(proxy)
+            except KeyboardInterrupt:
+                raise KeyboardInterrupt()
+            except Exception as error:
+                print(error)
+                print('trying next socket...')
+            finally:
+                if self.browser is not None:
+                    self.browser.close()
