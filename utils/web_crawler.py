@@ -46,8 +46,12 @@ class ProxyCrawler(object):
         assert 'DuckDuckGo' in self.browser.title
 
         for tag in self.browser.find_elements(By.TAG_NAME, 'input'):
-            print(tag.get_attribute('type'))
-        # search_box = self.browser.find_elements(By.TAG_NAME, 'input')
+            if tag.get_attribute('type') == 'text':
+                tag.send_keys(self.keyword)
+                break
+        else:
+            raise RuntimeError('failed to locate input tag search box')
+
         random_sleep(short=True)
         # search_box.send_keys(self.keyword)
         # random_sleep(short=True)
