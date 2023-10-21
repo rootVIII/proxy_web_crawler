@@ -30,10 +30,8 @@ class ProxyCrawler(object):
     def search(self, proxy: tuple):
         # To view FF profile open the browser and enter about:support
         host, port = proxy
-        profile = r'C:\Users\colle\AppData\Roaming\Mozilla\Firefox\Profiles\fibwdudh.default-release'
         firefox_opts = Options()
         firefox_opts.page_load_strategy = 'eager'
-        firefox_opts.set_preference('profile', profile)
         firefox_opts.set_preference('network.proxy.type', 1)
         firefox_opts.set_preference('network.proxy.http', host)
         firefox_opts.set_preference('network.proxy.http_port', int(port))
