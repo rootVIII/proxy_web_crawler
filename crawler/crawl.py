@@ -10,6 +10,7 @@ from urllib.request import urlopen, Request
 class ProxyCrawler(object):
     def __init__(self, url: str, keyword: str, is_headless: bool, user_agents: list):
         self.proxies = []
+        self.is_headless = is_headless
         self.browser = None
         self.user_agents = user_agents
         self.url, self.keyword, self.path = url, keyword, path
@@ -38,13 +39,16 @@ class ProxyCrawler(object):
         firefox_opts.set_preference('network.proxy.ssl', host)
         firefox_opts.set_preference('network.proxy.ssl_port', port)
         firefox_opts.set_preference('general.useragent.override', self.get_agent())
+        if self.is_headless:
+            firefox_opts.add_argument('--headless')
 
         self.browser = webdriver.Firefox(options=firefox_opts)
         self.browser.set_page_load_timeout(30)
-        self.browser.get('https://www.bing.com/')
+        self.browser.get('https://www.bing.com/')  # maybe use duckduckgo
         assert 'Bing' in self.browser.title
-        print('socket: %s:%d' % (host, port))
+        print('socket: %s:%s' % proxy)
         self.random_sleep()
+
         # search_box = self.browser.find_element_by_name('q')
         # self.random_sleep(short=True)
         # search_box.send_keys(self.keyword)
@@ -95,3 +99,5 @@ class ProxyCrawler(object):
             except Exception as e:
                 print('%s: %s' % (type(e).__name__, str(e)))
                 print('trying next socket...')
+            finally:
+                self.browser.close()

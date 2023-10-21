@@ -24,12 +24,12 @@ if __name__ == "__main__":
     if args.url[:8] != 'https://':
         print('Include protocol in URL: https://')
         exit(1)
-    # try:
-    main(args.url, args.keyword, args.headless)
-    # except KeyboardInterrupt:
-    #     print('Exiting...\n')
-    #     exit()
-    # except Exception as err:
-    #     print('encountered error, exiting...')
-    #     print(err)
-    #     exit(1)
+    try:
+        main(args.url, args.keyword, args.headless)
+    except KeyboardInterrupt:
+        print('Exiting...\n')
+        exit()
+    except Exception as err:
+        print('encountered error, exiting...')
+        print(err)
+        exit(1)
