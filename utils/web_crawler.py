@@ -76,7 +76,7 @@ class ProxyCrawler(object):
         print('found %s at search index %d' % (link_url, page_index + 1))
         random_sleep(short=True)
         self.browser.get(link_url)
-        random_sleep(short=True)  # TODO: remove short=True
+        random_sleep()
 
         page_links = [anchor for anchor in self.browser.find_elements(By.TAG_NAME, 'a')
                       if anchor.get_attribute('href') is not None
@@ -88,6 +88,7 @@ class ProxyCrawler(object):
         random_sleep(short=True)
         page_links[randint(0, len(page_links) - 1)].click()
         random_sleep()
+        print('Visited %s' % self.browser.current_url)
 
     def start_search(self):
         self.scrape_sockets()
