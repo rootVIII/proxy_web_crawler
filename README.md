@@ -4,14 +4,14 @@ and the Bing search engine.... page after page
 <br><br>
 Pass a complete URL and at least 1 keyword as command line arguments:
 <br>
-<code>python proxy_crawler.py -u https://www.example.com -k keyword</code>
-<br><br>
-<code>python proxy_crawler.py -u https://www.whatsmyip.org -k "my ip"</code>
+<code>python proxy_crawler.py -u &lt;url&gt; -k &lt;keyword&gt;</code>
+<br>
+<code>python proxy_crawler.py -u "https://www.whatsmyip.org" -k "my ip"</code>
 <br><br>
 Run headless (no GUI):
 <br>
-<code>python proxy_crawler.py -u https://www.whatsmyip.org -k "my ip" -x</code>
-<br><br>
+<code>python proxy_crawler.py -u "https://www.whatsmyip.org" -k "my ip" -x</code>
+<br>
 <ul>
     <li>
         A list of proxies from the web are scraped first
@@ -31,7 +31,21 @@ Run headless (no GUI):
 <hr>
 <ul>
     <li>
-        Requirements: python3, selenium, Firefox browser, and geckodriver
+        Requirements:
+        <ul>
+            <li>
+                python3
+            </li>
+            <li>
+                selenium
+            </li>
+            <li>
+                Firefox browser
+            </li>
+            <li>
+                geckodriver
+            </li>
+        </ul>
     </li>
     <li>
         Download the latest geckodriver from <a href="https://github.com/mozilla/geckodriver/releases">Mozilla</a>
@@ -47,6 +61,4 @@ Run headless (no GUI):
 <hr>
 <img src="https://github.com/rootVIII/proxy_web_crawler/blob/master/sc.png" alt="screenshot" height="675" width="700">
 <hr>
-This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 60.0
-<br>
 <b>Author: rootVIII  2018-2020</b>
