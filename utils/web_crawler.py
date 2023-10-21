@@ -76,15 +76,17 @@ class ProxyCrawler(object):
         print('found %s at search index %d' % (link_url, page_index + 1))
         random_sleep(short=True)
         self.browser.get(link_url)
-        random_sleep()
+        random_sleep(short=True)  # TODO: remove short=True
 
         page_links = [anchor for anchor in self.browser.find_elements(By.TAG_NAME, 'a')
                       if anchor.get_attribute('href') is not None
-                      and 'mailto' not in anchor.get_attribute('href')]
+                      and 'mailto' not in anchor.get_attribute('href')
+                      and 'https' in anchor.get_attribute('href')
+                      and anchor.get_attribute('href') != self.browser.current_url
+                      and 'google.com' not in anchor.get_attribute('href')]
 
         random_sleep(short=True)
-        random_link = randint(0, len(page_links) - 1)
-        page_links[random_link].click()
+        page_links[randint(0, len(page_links) - 1)].click()
         random_sleep()
 
     def start_search(self):
@@ -93,7 +95,7 @@ class ProxyCrawler(object):
             try:
                 self.search(proxy)
             except KeyboardInterrupt:
-                raise KeyboardInterrupt()
+                raise
             except Exception as error:
                 print(error)
                 print('trying next socket...')
