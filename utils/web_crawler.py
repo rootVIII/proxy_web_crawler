@@ -42,7 +42,7 @@ class ProxyCrawler(object):
         self.browser = webdriver.Firefox(options=firefox_opts)
         self.browser.set_page_load_timeout(30)
         self.browser.get('https://www.duckduckgo.com')
-        print('socket: %s:%s' % proxy)
+        print('searching with socket: %s:%s' % proxy)
         random_sleep(short=True)
         assert 'DuckDuckGo' in self.browser.title
 
@@ -73,25 +73,20 @@ class ProxyCrawler(object):
                 self.browser.find_element(By.ID, 'more-results').click()
                 random_sleep(short=True)
 
-        print('found %s at index %d' % (link_url, page_index + 1))
+        # Found target page if at this point
+        print('found %s at search index %d' % (link_url, page_index + 1))
         random_sleep(short=True)
         self.browser.get(link_url)
-        random_sleep(short=True)
+        random_sleep(short=True)  # TODO: remove short=True
 
-        # Found page
-        # self.random_sleep(short=True)
-        # while self.url[8:] not in self.browser.current_url:
-        #     print('waiting for page to load...')
-        #     random_sleep()
-        # random_sleep()
-        # target_links = self.browser.find_elements_by_xpath(''//a[@href]'')
-        # random_page_num = randint(0, len(target_links) - 1)
-        # target_link = target_links[random_page_num]
-        # random_sleep()
-        # target_link.click()
-        # random_sleep()
-        # print('visiting random page: %s' % self.browser.current_url)
-        # random_sleep()
+        page_links = [anchor for anchor in self.browser.find_elements(By.TAG_NAME, 'a')
+                      if anchor.get_attribute('href') is not None 
+                      and 'mailto' not in anchor.get_attribute('href')]
+
+        random_sleep(short=True)
+        random_link = randint(0, len(page_links) - 1)
+        page_links[random_link].click()
+        random_sleep()
 
     def start_search(self):
         self.scrape_sockets()
