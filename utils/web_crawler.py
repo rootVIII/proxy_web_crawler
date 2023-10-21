@@ -45,18 +45,16 @@ class ProxyCrawler(object):
         random_sleep(short=True)
         assert 'DuckDuckGo' in self.browser.title
 
-        for tag in self.browser.find_elements(By.TAG_NAME, 'input'):
-            if tag.get_attribute('type') == 'text':
-                tag.send_keys(self.keyword)
+        for search_box in self.browser.find_elements(By.TAG_NAME, 'input'):
+            if search_box.get_attribute('type') == 'text':
+                search_box.send_keys(self.keyword)
                 break
         else:
             raise RuntimeError('failed to locate input tag search box')
 
         random_sleep(short=True)
-        # search_box.send_keys(self.keyword)
-        # random_sleep(short=True)
-        # search_box.send_keys(Keys.RETURN)
-        # random_sleep(short=True)
+        search_box.send_keys(Keys.RETURN)
+        random_sleep(short=True)
         page_index = 0
 
         # Search until the desired URL is found
