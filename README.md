@@ -1,57 +1,71 @@
-## search for a website with a different proxy each time
+### Search for a website with a different proxy each time
 This script automates the process of searching for a website via keyword
-and the Bing search engine.... page after page
+and the DuckDuckGo search engine.... page after page
 <br><br>
-Pass a complete URL and at least 1 keyword as command line arguments:
+Pass a complete URL and at least 1 keyword as command line arguments to run program:
 <br>
-<code>python proxy_crawler.py -u https://www.example.com -k keyword</code>
-<br><br>
-<code>python proxy_crawler.py -u https://www.whatsmyip.org -k "my ip"</code>
-<br><br>
-If on a Linux system, proxy_crawler can run headless. Give the -x option (requires XVFB):
+<code>python proxy_crawler.py -u &lt;url&gt; -k &lt;keyword(s)&gt;</code>
 <br>
-<code>python proxy_crawler.py -u https://www.whatsmyip.org -k "my ip" -x</code>
+<code>python proxy_crawler.py -u "https://www.whatsmyip.org" -k "my ip"</code>
 <br><br>
+Add the -x option to run headless (no GUI):
+<br>
+<code>python proxy_crawler.py -u "https://www.whatsmyip.org" -k "my ip" -x</code>
+<br>
 <ul>
     <li>
-        It first scrapes a list of proxies from the web
-        using <a href="https://www.sslproxies.org">SSL Proxies</a>
+        A list of proxies from the web are scraped first
+        using <a href="https://www.sslproxies.org">sslproxies.org</a>
     </li>
     <li>
         Then using a new proxy socket for each iteration, the specified <b>keyword(s)</b>
-        is searched for via Bing until the desired <b>website</b> is found
+        is searched for until the desired <b>website</b> is found
     </li>
     <li>
         The website is then visited, and one random link is clicked within the website
     </li>
     <li>
-        The bot is slowed down on purpose
-    </li>   
+        The bot is slowed down on purpose, but will also run fairly slow due to proxy connection
+    </li>
     <li>
-        If searching with multiple keywords, wrap them in quotes: "example search phrase"
+        Browser windows may open and close repeatedly during runtime (due to connection errors) until a healthy/valid proxy is encountered
     </li>
 </ul>
-<br>
-Along with Python 3 and geckodriver, the following are also required:
-<pre>
-    <code>
-pip install selenium
-apt-get install xvfb (Linux only)
-    </code>
-</pre>
-<br><br>
-proxy_crawler.py passes pep8/pycodestyle
-<br><br>
-I use this version of geckodriver on Ubuntu:
-<br><br>
-<code>wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz</code>
-<br><br>
-geckodriver should be unzipped and saved somewhere in your PATH... ie: <code>/usr/local/bin</code>
 <hr>
-<img src="https://github.com/rootVIII/proxy_web_crawler/blob/master/sc.png" alt="screenshot" height="675" width="700"><hr>
+<ul>
+    <li>
+        Requirements:
+        <ul>
+            <li>
+                python3
+            </li>
+            <li>
+                selenium
+            </li>
+            <li>
+                Firefox browser
+            </li>
+            <li>
+                geckodriver
+            </li>
+        </ul>
+    </li>
+    <li>
+        Download the latest geckodriver from <a href="https://github.com/mozilla/geckodriver/releases">Mozilla</a>
+    </li>
+    <li>
+        Unzip the file and place geckodriver into your path
+    </li>
+    <li>
+        Ensure selenium is installed: <code>pip install -r requirements.txt</code>
+    </li>
+</ul>
+
 <hr>
-This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 60.0
-<br>
-Also tested on Ubuntu 18.04
-<br>
-<b>Author: rootVIII  2018-2020</b>
+<img src="https://user-images.githubusercontent.com/30498791/277134161-e2cec5a4-c64a-4a47-a5d8-39b81aea8522.png" alt="screenshot1">
+<br><br>
+<img src="https://user-images.githubusercontent.com/30498791/277134162-76fe4626-1d57-452a-940d-8a6030850e2b.png" alt="screenshot2">
+<br><br>
+<img src="https://user-images.githubusercontent.com/30498791/277134163-70c4ab50-5582-4b5c-97a8-0ff96fbf9a76.png" alt="screenshot3">
+<hr>
+<b>Author: rootVIII  2018-2023</b>
