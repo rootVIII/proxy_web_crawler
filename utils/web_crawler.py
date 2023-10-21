@@ -2,6 +2,7 @@ from re import findall
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.firefox.options import Options
 from urllib.request import urlopen, Request
 from utils.utils import randint, random_sleep
 
@@ -27,22 +28,29 @@ class ProxyCrawler(object):
         self.proxies = findall(r'<tr><td>(\d+\.\d+\.\d+\.\d+)<\W?td><td>(\d+)<\W?td>', text)
 
     def search(self, proxy: tuple):
+        # To view FF profile open the browser and enter about:support
         host, port = proxy
-        firefox_opts = webdriver.FirefoxOptions()
+        firefox_opts = Options()
+        firefox_opts.page_load_strategy = 'eager'
         firefox_opts.set_preference('network.proxy.type', 1)
         firefox_opts.set_preference('network.proxy.http', host)
-        firefox_opts.set_preference('network.proxy.http_port', port)
+        firefox_opts.set_preference('network.proxy.http_port', int(port))
         firefox_opts.set_preference('network.proxy.ssl', host)
-        firefox_opts.set_preference('network.proxy.ssl_port', port)
+        firefox_opts.set_preference('network.proxy.ssl_port', int(port))
         firefox_opts.set_preference('general.useragent.override', self.get_agent())
         if self.is_headless:
             firefox_opts.add_argument('--headless')
+            firefox_opts.add_argument('--headless')
+            firefox_opts.add_argument('-disable-gpu')
+            firefox_opts.add_argument('--window-size=1920,1080')
+            firefox_opts.add_argument('--no-sandbox')
+            firefox_opts.add_argument('--disable-dev-shm-usage')
 
-        self.browser = webdriver.Firefox(options=firefox_opts)
-        self.browser.set_page_load_timeout(30)
-        self.browser.get('https://www.duckduckgo.com')
         print('searching with socket: %s:%s' % proxy)
-        random_sleep(short=True)
+        self.browser = webdriver.Firefox(options=firefox_opts)
+        self.browser.set_page_load_timeout(120.0)
+        self.browser.get('https://www.duckduckgo.com')
+        random_sleep()
         assert 'DuckDuckGo' in self.browser.title
 
         for search_box in self.browser.find_elements(By.TAG_NAME, 'input'):
@@ -54,7 +62,7 @@ class ProxyCrawler(object):
 
         random_sleep(short=True)
         search_box.send_keys(Keys.RETURN)
-        random_sleep(short=True)
+        random_sleep()
 
         # Search until the desired URL is found
         page_index = 0
