@@ -68,4 +68,4 @@ Add the -x option to run headless (no GUI):
 <br><br>
 <img src="https://user-images.githubusercontent.com/30498791/277134163-70c4ab50-5582-4b5c-97a8-0ff96fbf9a76.png" alt="screenshot3">
 <hr>
-<b>Author: rootVIII  2018-2020</b>
+<b>Author: rootVIII  2018-2023</b>
