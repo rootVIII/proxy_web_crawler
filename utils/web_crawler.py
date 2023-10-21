@@ -14,6 +14,7 @@ class ProxyCrawler(object):
         self.browser = None
         self.user_agents = user_agents
         self.url, self.keyword, self.path = url, keyword, path
+        self.page_index_max = 100  # Search results page index max
 
     def get_agent(self):
         return self.user_agents[randint(0, len(self.user_agents) - 1)]
@@ -55,26 +56,27 @@ class ProxyCrawler(object):
         random_sleep(short=True)
         search_box.send_keys(Keys.RETURN)
         random_sleep(short=True)
-        page_index = 0
 
         # Search until the desired URL is found
-        # while True:
-        #     page_index += 1
-        #     page_links = self.browser.find_elements_by_xpath(''//a[@href]'')
-        #     found_link = None
-        #     for link in page_links:
-        #         if self.url[8:] in link.get_attribute('href'):
-        #             print('found %s at index: %d' % (self.url, page_index))
-        #             found_link = link
-        #             break
-        #     if found_link is not None:
-        #         found_link.click()
-        #         break
+        page_index = 0
+        link_url = ''
+        while not link_url:
+            if page_index > self.page_index_max:
+                raise RuntimeError('search results exceeded max page index')
+            for anchor in self.browser.find_elements(By.TAG_NAME, 'a'):
+                link = anchor.get_attribute('href')
+                if link is not None and self.url in link:
+                    link_url = link
+                    break
+            else:
+                page_index += 1
+                self.browser.find_element(By.ID, 'more-results').click()
+                random_sleep(short=True)
 
-        #     random_sleep()
-        #     index = str(page_index + 1)
-        #     self.browser.find_element_by_link_text(index).click()
-        #     self.random_sleep(short=True)
+        print('found %s at index %d' % (link_url, page_index + 1))
+        random_sleep(short=True)
+        self.browser.get(link_url)
+        random_sleep(short=True)
 
         # Found page
         # self.random_sleep(short=True)
@@ -94,13 +96,15 @@ class ProxyCrawler(object):
     def start_search(self):
         self.scrape_sockets()
         for proxy in self.proxies:
-            try:
-                self.search(proxy)
-            except KeyboardInterrupt:
-                raise KeyboardInterrupt()
-            except Exception as error:
-                print(error)
-                print('trying next socket...')
-            finally:
-                if self.browser is not None:
-                    self.browser.close()
+            self.search(proxy)
+            self.browser.close()
+            # try:
+            #     self.search(proxy)
+            # except KeyboardInterrupt:
+            #     raise KeyboardInterrupt()
+            # except Exception as error:
+            #     print(error)
+            #     print('trying next socket...')
+            # finally:
+            #     if self.browser is not None:
+            #         self.browser.close()

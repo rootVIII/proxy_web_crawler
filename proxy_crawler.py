@@ -13,10 +13,10 @@ def main(url: str, keyword: str, is_headless: bool):
     if not user_agents:
         raise RuntimeError('missing user-agents in user-agents.txt')
 
-    # while True:
-    bot = ProxyCrawler(url, keyword, is_headless, user_agents)
-    print('searching for keyword(s):  %s' % keyword)
-    bot.start_search()
+    while True:
+        bot = ProxyCrawler(url, keyword, is_headless, user_agents)
+        print('searching for %s keyword(s):  %s' % (url, keyword))
+        bot.start_search()
 
 
 if __name__ == "__main__":
