@@ -28,7 +28,7 @@ Run headless (no GUI):
         The bot is slowed down on purpose, but will also run fairly slow due to proxy connection
     </li>
     <li>
-        Browser windows may open and close repeatedly until a healthy/valid proxy is encountered
+        Browser windows may open and close repeatedly during runtime (due to connection errors) until a healthy/valid proxy is encountered
     </li>
 </ul>
 <hr>
