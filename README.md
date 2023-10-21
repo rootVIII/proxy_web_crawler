@@ -1,6 +1,6 @@
 ### Search for a website with a different proxy each time
 This script automates the process of searching for a website via keyword
-and the Bing search engine.... page after page
+and the DuckDuckGo search engine.... page after page
 <br><br>
 Pass a complete URL and at least 1 keyword as command line arguments:
 <br>
@@ -19,7 +19,7 @@ Run headless (no GUI):
     </li>
     <li>
         Then using a new proxy socket for each iteration, the specified <b>keyword(s)</b>
-        is searched for via Bing until the desired <b>website</b> is found
+        is searched for until the desired <b>website</b> is found
     </li>
     <li>
         The website is then visited, and one random link is clicked within the website
