@@ -2,8 +2,8 @@
 from os import path
 from pathlib import Path
 from sys import exit
-from crawler.crawl import ProxyCrawler
-from crawler.arguments import get_cli_args
+from utils.web_crawler import ProxyCrawler
+from utils.utils import get_cli_args
 
 
 def main(url: str, keyword: str, is_headless: bool):
@@ -30,6 +30,6 @@ if __name__ == "__main__":
         print('Exiting...\n')
         exit()
     except Exception as err:
-        print('encountered error, exiting...')
+        print('Encountered error, exiting...')
         print(err)
         exit(1)

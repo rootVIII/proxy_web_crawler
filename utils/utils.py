@@ -1,4 +1,6 @@
 from argparse import ArgumentParser
+from random import randint, random
+from time import sleep
 
 
 def get_cli_args():
@@ -13,3 +15,7 @@ def get_cli_args():
         '-x', '--headless', required=False,
         action='store_true', help='requires pyvirtualdisplay & Linux OS')
     return parser.parse_args()
+
+
+def random_sleep(short: bool = False):
+    sleep(randint(30, 60) + random()) if not short else sleep(randint(5, 10) + random())

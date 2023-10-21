@@ -1,10 +1,9 @@
 from os import path
 from re import findall
-from random import randint, random
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from time import sleep
 from urllib.request import urlopen, Request
+from utils.utils import randint, random_sleep
 
 
 class ProxyCrawler(object):
@@ -14,10 +13,6 @@ class ProxyCrawler(object):
         self.browser = None
         self.user_agents = user_agents
         self.url, self.keyword, self.path = url, keyword, path
-
-    @staticmethod
-    def random_sleep(short: bool = False):
-        sleep(randint(30, 60) + random()) if not short else sleep(randint(5, 10) + random())
 
     def get_agent(self):
         return self.user_agents[randint(0, len(self.user_agents) - 1)]
@@ -47,14 +42,14 @@ class ProxyCrawler(object):
         self.browser.get('https://www.bing.com/')  # maybe use duckduckgo
         assert 'Bing' in self.browser.title
         print('socket: %s:%s' % proxy)
-        self.random_sleep()
+        random_sleep()
 
         # search_box = self.browser.find_element_by_name('q')
         # self.random_sleep(short=True)
         # search_box.send_keys(self.keyword)
-        # self.random_sleep()
+        # random_sleep()
         # search_box.send_keys(Keys.RETURN)
-        # self.random_sleep()
+        # random_sleep()
         # page_index = 0
 
         # Search until the desired URL is found
@@ -70,8 +65,8 @@ class ProxyCrawler(object):
         #     if found_link is not None:
         #         found_link.click()
         #         break
-        # 
-        #     self.random_sleep()
+
+        #     random_sleep()
         #     index = str(page_index + 1)
         #     self.browser.find_element_by_link_text(index).click()
         #     self.random_sleep(short=True)
@@ -80,16 +75,16 @@ class ProxyCrawler(object):
         # self.random_sleep(short=True)
         # while self.url[8:] not in self.browser.current_url:
         #     print('waiting for page to load...')
-        #     self.random_sleep()
-        # self.random_sleep()
+        #     random_sleep()
+        # random_sleep()
         # target_links = self.browser.find_elements_by_xpath(''//a[@href]'')
         # random_page_num = randint(0, len(target_links) - 1)
         # target_link = target_links[random_page_num]
-        # self.random_sleep()
+        # random_sleep()
         # target_link.click()
-        # self.random_sleep()
+        # random_sleep()
         # print('visiting random page: %s' % self.browser.current_url)
-        # self.random_sleep()
+        # random_sleep()
 
     def start_search(self):
         self.scrape_sockets()
