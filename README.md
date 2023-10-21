@@ -62,6 +62,10 @@ Run headless (no GUI):
 </ul>
 
 <hr>
-<img src="https://github.com/rootVIII/proxy_web_crawler/blob/master/sc.png" alt="screenshot" height="675" width="700">
+<img src="https://user-images.githubusercontent.com/30498791/277134161-e2cec5a4-c64a-4a47-a5d8-39b81aea8522.png" alt="screenshot1">
+<br><br>
+<img src="https://user-images.githubusercontent.com/30498791/277134162-76fe4626-1d57-452a-940d-8a6030850e2b.png" alt="screenshot2">
+<br><br>
+<img src="https://user-images.githubusercontent.com/30498791/277134163-70c4ab50-5582-4b5c-97a8-0ff96fbf9a76.png" alt="screenshot3">
 <hr>
 <b>Author: rootVIII  2018-2020</b>
