@@ -5,18 +5,11 @@ from selenium.webdriver.common.keys import Keys
 from sys import platform
 from time import sleep
 from urllib.request import urlopen, Request
-# rootVIII 2018-2020
-
-try:
-    from pyvirtualdisplay import Display
-    xvfb = True
-except ImportError:
-    xvfb = False
 
 
 class ProxyCrawler(object):
     def __init__(self, url, keyword):
-        self.sockets, self.agents = [], []
+        self.proxies, self.agents = [], []
         self.url, self.keyword = url, keyword
         self.proxy_host, self.fp, self.browser = (None for _ in range(3))
         self.request_MAX, self.proxy_port, self.request_count = 5, 0, 0
@@ -25,10 +18,7 @@ class ProxyCrawler(object):
 
     @staticmethod
     def random_sleep(short=False):
-        if not short:
-            sleep(randint(30, 60) + random())
-        else:
-            sleep(randint(5, 10) + random())
+        sleep(randint(30, 60) + random()) if not short else sleep(randint(5, 10) + random())
 
     def set_current_proxy(self):
         self.fp = webdriver.FirefoxProfile()
@@ -42,15 +32,13 @@ class ProxyCrawler(object):
 
     def scrape_sockets(self):
         print('acquiring new proxies...')
-        agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) '
-        agent += 'AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/80.0.398'
-        agent += '7.95 Mobile/15E148 Safari/605.1'
-        resp = urlopen(Request(
-            'https://www.sslproxies.org/',
-            headers={'User-Agent': agent})).read().decode('utf-8')
-        matches = findall(r'<td>\d+\.\d+\.\d+\.\d+</td><td>\d+</td>', resp)
-        revised = [tag.replace('<td>', '') for tag in matches]
-        self.sockets = [s[:-5].replace('</td>', ':') for s in revised]
+        agent = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+                 '(KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36')
+        resp = urlopen(Request('https://www.sslproxies.org/', headers={'User-Agent': agent}))
+        if resp.getcode() != 200:
+            raise RuntimeError('sslproxies.org is unreachable')
+        text = resp.read().decode('utf-8')
+        self.proxies = findall(r'<tr><td>(\d+\.\d+\.\d+\.\d+)<\W?td><td>(\d+)<\W?td>', text)
 
     def search(self, socket):
         sock = socket.split(':')

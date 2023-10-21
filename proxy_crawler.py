@@ -1,9 +1,8 @@
-#! /usr/bin/python3
 # rootVIII | proxy_crawler.py
 from sys import exit
 from threading import Thread
 from crawler.crawl import ProxyCrawler, HeadlessProxyCrawler
-from crawler.arguments import ArgParser
+from crawler.arguments import get_cli_args
 
 
 def main():
@@ -16,8 +15,8 @@ def main():
 
 
 if __name__ == "__main__":
-    args = ArgParser().get_args()
-    if 'https://' not in args.url:
+    args = get_cli_args()
+    if args.url[:8] != 'https://':
         print('Include protocol in URL: https://')
         exit(1)
     try:
@@ -26,4 +25,9 @@ if __name__ == "__main__":
         thread.start()
         thread.join()
     except KeyboardInterrupt:
-        print('\nExiting\n')
+        print('Exiting...\n')
+        exit()
+    except Exception as err:
+        print('encountered error, exiting...')
+        print(err)
+        exit(1)
