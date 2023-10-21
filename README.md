@@ -1,4 +1,4 @@
-## search for a website with a different proxy each time
+### Search for a website with a different proxy each time
 This script automates the process of searching for a website via keyword
 and the Bing search engine.... page after page
 <br><br>
@@ -8,14 +8,14 @@ Pass a complete URL and at least 1 keyword as command line arguments:
 <br><br>
 <code>python proxy_crawler.py -u https://www.whatsmyip.org -k "my ip"</code>
 <br><br>
-If on a Linux system, proxy_crawler can run headless. Give the -x option (requires XVFB):
+Run headless (no GUI):
 <br>
 <code>python proxy_crawler.py -u https://www.whatsmyip.org -k "my ip" -x</code>
 <br><br>
 <ul>
     <li>
-        It first scrapes a list of proxies from the web
-        using <a href="https://www.sslproxies.org">SSL Proxies</a>
+        A list of proxies from the web are scraped first
+        using <a href="https://www.sslproxies.org">sslproxies.org</a>
     </li>
     <li>
         Then using a new proxy socket for each iteration, the specified <b>keyword(s)</b>
@@ -25,33 +25,28 @@ If on a Linux system, proxy_crawler can run headless. Give the -x option (requir
         The website is then visited, and one random link is clicked within the website
     </li>
     <li>
-        The bot is slowed down on purpose
-    </li>   
-    <li>
-        If searching with multiple keywords, wrap them in quotes: "example search phrase"
+        The bot is slowed down on purpose, but will also run fairly slow due to proxy connection
     </li>
 </ul>
-<br>
-Along with Python 3 and geckodriver, the following are also required:
-<pre>
-    <code>
-pip install selenium
-apt-get install xvfb (Linux only)
-    </code>
-</pre>
-<br><br>
-proxy_crawler.py passes pep8/pycodestyle
-<br><br>
-I use this version of geckodriver on Ubuntu:
-<br><br>
-<code>wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz</code>
-<br><br>
-geckodriver should be unzipped and saved somewhere in your PATH... ie: <code>/usr/local/bin</code>
 <hr>
-<img src="https://github.com/rootVIII/proxy_web_crawler/blob/master/sc.png" alt="screenshot" height="675" width="700"><hr>
+<ul>
+    <li>
+        Requirements: python3, selenium, Firefox browser, and geckodriver
+    </li>
+    <li>
+        Download the latest geckodriver from <a href="https://github.com/mozilla/geckodriver/releases">Mozilla</a>
+    </li>
+    <li>
+        Unzip the file and place geckodriver into the geckodriver/ directory
+    </li>
+    <li>
+        Ensure selenium is installed: <code>pip install -r requirements.txt</code>
+    </li>
+</ul>
+
+<hr>
+<img src="https://github.com/rootVIII/proxy_web_crawler/blob/master/sc.png" alt="screenshot" height="675" width="700">
 <hr>
 This was developed on Ubuntu 16.04.4 LTS with selenium/geckodriver and firefox 60.0
-<br>
-Also tested on Ubuntu 18.04
 <br>
 <b>Author: rootVIII  2018-2020</b>
