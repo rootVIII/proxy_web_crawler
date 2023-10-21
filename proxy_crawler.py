@@ -1,17 +1,22 @@
 # rootVIII | proxy_crawler.py
+from os import path
+from pathlib import Path
 from sys import exit
-from threading import Thread
-from crawler.crawl import ProxyCrawler, HeadlessProxyCrawler
+from crawler.crawl import ProxyCrawler
 from crawler.arguments import get_cli_args
 
 
-def main():
-    while True:
-        if not args.headless:
-            bot = ProxyCrawler(args.url, args.keyword)
-        else:
-            bot = HeadlessProxyCrawler(args.url, args.keyword)
-        bot.start_search()
+def main(url: str, keyword: str, is_headless: bool):
+    project_path = str(Path(__file__).parent)
+    with open(path.join(project_path, 'user-agents.txt')) as file_in:
+        user_agents = [line.strip() for line in file_in.readlines() if line.strip()]
+    if not user_agents:
+        raise RuntimeError('Missing user-agents in user-agents.txt')
+
+    # while True:
+    bot = ProxyCrawler(url, keyword, is_headless, user_agents)
+    print('Searching for keyword(s):  %s' % keyword)
+    bot.start_search()
 
 
 if __name__ == "__main__":
@@ -19,15 +24,12 @@ if __name__ == "__main__":
     if args.url[:8] != 'https://':
         print('Include protocol in URL: https://')
         exit(1)
-    try:
-        thread = Thread(target=main)
-        thread.daemon = True
-        thread.start()
-        thread.join()
-    except KeyboardInterrupt:
-        print('Exiting...\n')
-        exit()
-    except Exception as err:
-        print('encountered error, exiting...')
-        print(err)
-        exit(1)
+    # try:
+    main(args.url, args.keyword, args.headless)
+    # except KeyboardInterrupt:
+    #     print('Exiting...\n')
+    #     exit()
+    # except Exception as err:
+    #     print('encountered error, exiting...')
+    #     print(err)
+    #     exit(1)
