@@ -11,25 +11,25 @@ def main(url: str, keyword: str, is_headless: bool):
     with open(path.join(project_path, 'user-agents.txt')) as file_in:
         user_agents = [line.strip() for line in file_in.readlines() if line.strip()]
     if not user_agents:
-        raise RuntimeError('Missing user-agents in user-agents.txt')
+        raise RuntimeError('missing user-agents in user-agents.txt')
 
     # while True:
     bot = ProxyCrawler(url, keyword, is_headless, user_agents)
-    print('Searching for keyword(s):  %s' % keyword)
+    print('searching for keyword(s):  %s' % keyword)
     bot.start_search()
 
 
 if __name__ == "__main__":
     args = get_cli_args()
     if args.url[:8] != 'https://':
-        print('Include protocol in URL: https://')
+        print('include protocol in URL: https://')
         exit(1)
     try:
         main(args.url, args.keyword, args.headless)
     except KeyboardInterrupt:
-        print('Exiting...\n')
+        print('exiting...\n')
         exit()
     except Exception as err:
-        print('Encountered error, exiting...')
+        print('encountered error, exiting...')
         print(err)
         exit(1)

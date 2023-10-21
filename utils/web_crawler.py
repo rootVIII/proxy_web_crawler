@@ -1,6 +1,7 @@
 from os import path
 from re import findall
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from urllib.request import urlopen, Request
 from utils.utils import randint, random_sleep
@@ -39,18 +40,20 @@ class ProxyCrawler(object):
 
         self.browser = webdriver.Firefox(options=firefox_opts)
         self.browser.set_page_load_timeout(30)
-        self.browser.get('https://www.bing.com/')  # maybe use duckduckgo
-        assert 'Bing' in self.browser.title
+        self.browser.get('https://www.duckduckgo.com')
         print('socket: %s:%s' % proxy)
-        random_sleep()
+        random_sleep(short=True)
+        assert 'DuckDuckGo' in self.browser.title
 
-        # search_box = self.browser.find_element_by_name('q')
-        # self.random_sleep(short=True)
+        for tag in self.browser.find_elements(By.TAG_NAME, 'input'):
+            print(tag.get_attribute('type'))
+        # search_box = self.browser.find_elements(By.TAG_NAME, 'input')
+        random_sleep(short=True)
         # search_box.send_keys(self.keyword)
-        # random_sleep()
+        # random_sleep(short=True)
         # search_box.send_keys(Keys.RETURN)
-        # random_sleep()
-        # page_index = 0
+        # random_sleep(short=True)
+        page_index = 0
 
         # Search until the desired URL is found
         # while True:
@@ -91,8 +94,11 @@ class ProxyCrawler(object):
         for proxy in self.proxies:
             try:
                 self.search(proxy)
-            except Exception as e:
-                print('%s: %s' % (type(e).__name__, str(e)))
+            except KeyboardInterrupt:
+                raise KeyboardInterrupt()
+            except Exception as error:
+                print(error)
                 print('trying next socket...')
             finally:
-                self.browser.close()
+                if self.browser is not None:
+                    self.browser.close()
