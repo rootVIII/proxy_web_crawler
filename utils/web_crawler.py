@@ -1,4 +1,3 @@
-from os import path
 from re import findall
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -13,7 +12,7 @@ class ProxyCrawler(object):
         self.is_headless = is_headless
         self.browser = None
         self.user_agents = user_agents
-        self.url, self.keyword, self.path = url, keyword, path
+        self.url, self.keyword = url, keyword
         self.page_index_max = 100  # Search results page index max
 
     def get_agent(self):
