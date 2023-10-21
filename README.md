@@ -37,7 +37,7 @@ Run headless (no GUI):
         Download the latest geckodriver from <a href="https://github.com/mozilla/geckodriver/releases">Mozilla</a>
     </li>
     <li>
-        Unzip the file and place geckodriver into the geckodriver/ directory
+        Unzip the file and place geckodriver into your path
     </li>
     <li>
         Ensure selenium is installed: <code>pip install -r requirements.txt</code>
