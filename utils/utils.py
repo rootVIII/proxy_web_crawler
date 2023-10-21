@@ -21,4 +21,4 @@ def get_cli_args():
 
 
 def random_sleep(short: bool = False):
-    sleep(randint(120, 240) + random()) if not short else sleep(randint(5, 10) + random())
+    sleep(randint(30, 60) + random()) if not short else sleep(randint(5, 10) + random())
