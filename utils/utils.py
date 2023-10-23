@@ -9,14 +9,14 @@ def get_cli_args():
     parser = ArgumentParser(description=description)
     parser.add_argument('-u', '--url',
                         required=True,
-                        help='Target URL including https://')
+                        help='target URL including https://')
     parser.add_argument('-k', '--keyword',
                         required=True,
                         help='keyword(s) to search for')
     parser.add_argument('-x', '--headless',
                         required=False,
                         action='store_true',
-                        help='requires pyvirtualdisplay & Linux OS')
+                        help='run crawler withou GUI (command prompt only)')
     return parser.parse_args()
 
 
